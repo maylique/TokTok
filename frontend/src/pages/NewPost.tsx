@@ -8,11 +8,11 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Store } from "@/zustand";
+import { Post } from "@/zustand";
 import { useStore } from "@/zustand";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { SelectSeparator } from "@/components/ui/select";
@@ -23,7 +23,14 @@ import { api } from "@/lib/api";
 import { useNavigate } from "react-router-dom";
 
 const NewPost = () => {
-  const { user, posts } = useStore() as Store;
+  const { user, getPostsByUserId } = useStore();
+  const [posts, setPosts] = useState<Post[]>(null);
+  useEffect(() => {
+    getPostsByUserId(user._id).then((json) => {
+      setPosts(json);
+    });
+  }, [user._id, getPostsByUserId]);
+
   const navigate = useNavigate();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const formData = new FormData();

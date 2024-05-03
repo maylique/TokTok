@@ -2,14 +2,15 @@ import { CardContent } from "@/components/ui/card";
 import { Post, useStore } from "@/zustand";
 import { useEffect, useState } from "react";
 
-const ProfilePosts = () => {
-  const { user, getPostsByUserId } = useStore();
+const UserProfilePosts = ({ profile }) => {
+  const { getPostsByUserId } = useStore();
   const [posts, setPosts] = useState<Post[]>(null);
+
   useEffect(() => {
-    getPostsByUserId(user._id).then((json) => {
+    getPostsByUserId(profile._id).then((json) => {
       setPosts(json);
     });
-  }, [user._id, getPostsByUserId]);
+  }, [profile._id, getPostsByUserId]);
 
   return (
     <>
@@ -28,7 +29,7 @@ const ProfilePosts = () => {
             <div className="grid grid-cols-3 gap-0.5 max-w-3xl">
               {posts.map((post) => (
                 <a
-                  href={`post/${post._id}`}
+                  href={`../post/${post._id}`}
                   key={post._id}
                   className="aspect-square"
                 >
@@ -50,4 +51,4 @@ const ProfilePosts = () => {
   );
 };
 
-export default ProfilePosts;
+export default UserProfilePosts;

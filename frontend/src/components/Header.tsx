@@ -13,9 +13,6 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Header = () => {
   const { logout } = useStore();
-  const handleLogout = async () => {
-    logout();
-  };
   return (
     <>
       <header className="flex m-3 justify-between items-center">

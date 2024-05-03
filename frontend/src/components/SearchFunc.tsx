@@ -31,8 +31,7 @@ const SearchFunc = () => {
 
   useEffect(() => {
     filterUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchItem, users]);
+  }, [searchItem, users, user]);
 
   const handleFollow = async (userId, isFollowing) => {
     try {

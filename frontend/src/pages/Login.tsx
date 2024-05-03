@@ -11,7 +11,7 @@ const Login = () => {
       loadCurrentUserData();
       navigate("/feed");
     }
-  }, [navigate]);
+  }, [navigate, user, loadCurrentUserData]);
 
   return (
     <>
