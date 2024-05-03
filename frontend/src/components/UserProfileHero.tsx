@@ -6,12 +6,10 @@ import { Post, useStore } from "@/zustand";
 import { Button } from "./ui/button";
 import { followUser, unfollowUser } from "@/lib/api";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
 
 const UserProfileHero = ({ profile }) => {
   const { user, getPostsByUserId } = useStore();
   const [followers, setFollowers] = useState(profile.followers);
-  const [following, setFollowing] = useState(profile.following);
   const [isFollowing, setIsFollowing] = useState(
     profile?.followers.includes(user!._id)
   );
