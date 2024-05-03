@@ -43,26 +43,26 @@ export const registerUser = async (req, res) => {
 	}
 };
 
-export const verifyUser = async (req, res) => {
-  const {id}  = req.params
-  try {
-		const user = await User.findOne({ id});
-		if (!user) return res.status(400).send({ message: "Invalid link" });
+// export const verifyUser = async (req, res) => {
+//   const {id}  = req.params
+//   try {
+// 		const user = await User.findOne({ id});
+// 		if (!user) return res.status(400).send({ message: "Invalid link" });
 
-		const token = await Token.findOne({
-			userId: user._id,
-			token: req.params.token,
-		});
-		if (!token) return res.status(400).send({ message: "Invalid link" });
+// 		const token = await Token.findOne({
+// 			userId: user._id,
+// 			token: req.params.token,
+// 		});
+// 		if (!token) return res.status(400).send({ message: "Invalid link" });
 
-		await User.updateOne({ _id: user._id, verified: true });
-		await token.remove();
+// 		await User.updateOne({ _id: user._id, verified: true });
+// 		await token.remove();
 
-		res.status(200).send({ message: "Email verified successfully" });
-	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error" });
-	}
-}
+// 		res.status(200).send({ message: "Email verified successfully" });
+// 	} catch (error) {
+// 		res.status(500).send({ message: "Internal Server Error" });
+// 	}
+// }
 
 export const getUserDetails = async (req, res) => {
 	try {
