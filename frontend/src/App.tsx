@@ -11,18 +11,20 @@ import Search from "./pages/Search";
 import NewPost from "./pages/NewPost";
 import { ThemeProvider } from "./provider/ThemeProvider";
 import SinglePost from "./pages/SinglePost";
-import VerifyMail from "./pages/VerifyMail";
 
 function App() {
   const { user, loadCurrentUserData, logout } = useStore() as Store;
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user && window.location.pathname !== "/register") {
+    if (
+      !user && window.location.pathname !== "/register"
+    ) {
       navigate("/login");
     }
 
     loadCurrentUserData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, loadCurrentUserData]);
 
   return (
@@ -34,7 +36,6 @@ function App() {
           <Route path="/feed" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/verify" element={<VerifyMail/>} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit-profile/:userId" element={<EditProfile />} />
           <Route path="/search" element={<Search />} />
@@ -42,6 +43,7 @@ function App() {
           <Route path="*" element={<button onClick={logout}>404</button>} />
         </Routes>
       </ThemeProvider>
+      { window.location.pathname === "/login" || window.location.pathname === "/register" ? null : <TabBar />}
     </>
   );
 }

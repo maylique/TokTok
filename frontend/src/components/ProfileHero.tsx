@@ -1,7 +1,7 @@
 import { Card, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Avatar } from "@/components/ui/avatar";
-import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Store, useStore } from "@/zustand";
 
 const ProfileHero = () => {
@@ -19,10 +19,11 @@ const ProfileHero = () => {
               <AvatarFallback>{user!.username}</AvatarFallback>
             </Avatar>
             <a href={`http://localhost:5173/edit-profile/${user!._id}`}>
-              <img
-                src="../img/profile-edit.svg"
-                className="z-10 absolute top-[14rem] left-[60%] sm:left-[54%] sm:top-[40%]"
-              />
+              <div className="relative w-20">
+                <div className="absolute bottom-3 left-[90%] sm:left-[54%] sm:top-[40%] w-full">
+                  <img src="../img/profile-edit.svg" />
+                </div>
+              </div>
             </a>
             <div className="text-3xl font-bold">{user!.fullname}</div>
             <div className="text-xl">{user!.job}</div>
@@ -39,16 +40,12 @@ const ProfileHero = () => {
               </div>
               <Separator orientation="vertical" />
               <div>
-                <span className="font-bold">
-                  {user!.followers.length}
-                </span>{" "}
+                <span className="font-bold">{user!.followers.length}</span>{" "}
                 Follower
               </div>
               <Separator orientation="vertical" />
               <div>
-                <span className="font-bold">
-                  {user!.following.length}
-                </span>{" "}
+                <span className="font-bold">{user!.following.length}</span>{" "}
                 Following
               </div>
             </div>

@@ -4,12 +4,12 @@ import { Post } from "./post.model.js";
 import { uploadImage } from "../utils/uploadImage.js";
 
 export const getPosts = async (req, res) => {
-  const posts = await Post.find().sort({ date: -1 }).populate("authorId")
+  const posts = await Post.find().sort({ date: -1 }).populate("authorId");
   res.json(posts);
 };
 
 export const getPost = async (req, res) => {
-  const post = await Post.findById(req.params.id)
+  const post = await Post.findById(req.params.id);
   res.json(post);
 };
 
@@ -25,7 +25,7 @@ export const getCommentsByPost = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const { caption } = req.body;
+  const { caption, location } = req.body;
   const { userId } = req.params;
   const response = await uploadImage(req.file.buffer);
   const imageUrl = response.secure_url;
@@ -36,6 +36,7 @@ export const createPost = async (req, res) => {
     imageUrl,
     username: user.username,
     authorId: userId,
+    location,
   });
   await newPost.save();
   if (!newPost) {
@@ -43,6 +44,7 @@ export const createPost = async (req, res) => {
   }
   res.json(newPost);
 };
+
 export const addComment = async (req, res) => {
   const { id, userId } = req.params;
   const { content } = req.body;

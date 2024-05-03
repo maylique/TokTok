@@ -5,10 +5,13 @@ import FeedHeader from "@/components/FeedHeader";
 import { addLike, getSinglePost, getUserData } from "@/lib/api";
 import { Store, useStore } from "@/zustand";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const SinglePost = () => {
   const { postId } = useParams<{ postId: string }>();
+
+  const navigate = useNavigate();
 
   const [singlePost, setSinglePost] = useState();
   const [authorDetails, setAuthorDetails] = useState([]);
@@ -62,17 +65,23 @@ const SinglePost = () => {
   }, []);
   return (
     <>
-      <header>
-        <div>
-          <img src="" alt="" />
-          <h3>Comments</h3>
+      <header className="m-3 mt-10">
+        <div className="flex m-2">
+          <img
+            onClick={() => {
+              navigate("/feed");
+            }}
+            src="/img/arrow.svg"
+            alt=""
+          />
+          <h3 className="ml-2 font-bold">Comments</h3>
         </div>
         <img src="" alt="" />
       </header>
       <FeedHeader profile={authorDetails[0]} />
       <main className="m-2">
-        <p>{singlePost?.caption}</p>
-        <p>{getTimeSince(singlePost?.date)}</p>
+        <p className="m-3">{singlePost?.caption}</p>
+        <p className="m-3 text-black-300">{getTimeSince(singlePost?.date)}</p>
         {/* <FeedCard post={singlePost} refresh={refreshSinglePost} /> */}
         <section>
           <div className="m-3 flex">
@@ -104,13 +113,15 @@ const SinglePost = () => {
           </div>
         </section>
       </main>
-      {singlePost?.comments.map((comment) => {
-        return (
-          <div className=" " key={comment._id}>
-            <Comments commentData={comment} />
-          </div>
-        );
-      })}
+      <section className=" border-black-400 border-t pt-3 m-3">
+        {singlePost?.comments.map((comment) => {
+          return (
+            <div key={comment._id}>
+              <Comments commentData={comment} />
+            </div>
+          );
+        })}
+      </section>
       <AddCommentForm
         postId={singlePost?._id}
         userId={user?._id}

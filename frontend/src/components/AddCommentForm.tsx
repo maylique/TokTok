@@ -27,7 +27,7 @@ const AddCommentForm = ({ postId, userId, refresh }) => {
 
   return (
     <>
-      <div className="flex w-full items-center p-3 space-x-2 fixed bottom-0 left-0 right-0 tabBar">
+      <div className="mt-8 flex w-full items-center p-3 space-x-2 sticky bottom-0 left-0 right-0 tabBar">
         <Avatar>
           <AvatarImage src={user?.profilePictureUrl} />
           <AvatarFallback>CN</AvatarFallback>

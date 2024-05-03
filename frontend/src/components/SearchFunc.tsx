@@ -49,11 +49,11 @@ const SearchFunc = () => {
 
   return (
     <>
-      <div className="w-[428px] h-[882px] p-6 flex-col justify-start items-center gap-7 inline-flex">
-        <div className="self-stretch h-[792px] flex-col justify-start items-start gap-6 flex">
-          <div className="w-[380px] h-[60px] px-5 bg-neutral-50 rounded-xl justify-start items-center gap-3 inline-flex">
+      <div className="flex-col items-center gap-7 p-6">
+        <div className="flex-col items-center gap-6 flex">
+          <div className="flex bg-neutral-50 rounded-xl items-center justify-center gap-3 w-full">
             <input
-              className="w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
+              className="px-5 h-10 bg-black-50 w-3/4 rounded-xl justify-center items-center gap-3 outline-none"
               type="text"
               value={searchItem}
               onChange={handleSearchInput}
@@ -64,8 +64,8 @@ const SearchFunc = () => {
           <div className="self-stretch justify-start items-start inline-flex">
             <div className="grow shrink basis-0 flex-col justify-start items-center gap-3 inline-flex">
               <div className="self-stretch justify-center items-center gap-2 inline-flex">
-                <div className="w-6 h-6 px-1 py-0.5 justify-center items-center flex">
-                  <img className="w-4 h-5" src="../img/Group.svg" />
+                <div className="px-1 py-0.5 justify-center items-center flex">
+                  <img className="w-4 h-5" src="/img/group.svg" />
                 </div>
               </div>
               <div className="self-stretch h-1 bg-primary-500 rounded-[100px]"></div>
@@ -76,10 +76,10 @@ const SearchFunc = () => {
             return (
               <div
                 key={filteredUser._id}
-                className="w-[380px] justify-start items-center gap-3 inline-flex"
+                className="w-full justify-start items-center gap-3 inline-flex"
               >
                 <div className="grow shrink basis-0 h-[60px] justify-start items-center gap-5 flex">
-                  <div className="w-[60px] h-[60px] justify-center items-center flex">
+                  <div className="justify-center items-center flex">
                     <img
                       className="w-[60px] h-[60px] rounded-full"
                       src={filteredUser?.profilePictureUrl}

@@ -45,6 +45,7 @@ export interface Post {
   imageUrl: string;
   likes: string[];
   comments: string[];
+  caption: string;
 }
 
 export interface Comment {

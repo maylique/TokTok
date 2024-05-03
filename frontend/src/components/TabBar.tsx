@@ -8,7 +8,8 @@ const TabBar = () => {
 
   useEffect(() => {
     window.onscroll = function () {
-      const st = window.pageYOffset || document.documentElement.scrollTop;
+      let lastScrollTop = 0;
+      const st = window.scrollY || document.documentElement.scrollTop;
       if (st > lastScrollTop) {
         setIsVisible(false);
       } else {
@@ -19,7 +20,7 @@ const TabBar = () => {
   }, []);
 
   return (
-    <div className={`tabBar ${isVisible ? "" : "hide"}`}>
+    <div className={`tabBar dark:bg-[#0A0A0A] ${isVisible ? "" : "hide"}`}>
       <NavLink to="/feed">
         <button className="noStyleBtn">
           <img

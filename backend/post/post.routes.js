@@ -21,7 +21,7 @@ router.post("/like/:postId/:userId", checkAuth, like);
 router.get("/:id", checkAuth, getPost);
 router.get("/user/:userId", checkAuth, getPostsByUserId);
 router.get("/:id/comments", checkAuth, getCommentsByPost);
-router.post("/:userId/", [checkAuth, mult.single("image")], createPost);
+router.post("/:userId", [checkAuth, mult.single("imageUrl")], createPost);
 router.post("/:id/:userId", checkAuth, addComment);
 router.delete("/:id", checkAuth, deletePost);
 router.delete("/:id/:commentId", checkAuth, deleteComment);

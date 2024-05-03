@@ -11,17 +11,17 @@ import {
 const FeedHeader = ({ profile }) => {
   return (
     <>
-      <div className="flex m-4 justify-between">
-        <div className="flex m-1">
-          <Avatar className=" m-1">
+      <div className="flex mb-3 justify-between">
+        <div className="flex">
+          <Avatar className="m-1">
             <AvatarImage
               className=" object-cover"
-              src={profile?.profilePictureUrl}
+              src={profile.profilePictureUrl}
             />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>{profile.username}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <h5>{profile?.username}</h5>
+            <h5>{profile.username}</h5>
             <p className="text-gray-500">{profile?.job}</p>
           </div>
         </div>

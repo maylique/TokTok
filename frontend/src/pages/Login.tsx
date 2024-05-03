@@ -8,9 +8,9 @@ const Login = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
+      loadCurrentUserData();
       navigate("/feed");
     }
-    loadCurrentUserData();
   }, [navigate]);
 
   return (

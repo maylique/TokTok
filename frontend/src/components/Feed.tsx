@@ -4,6 +4,7 @@ import { Store, useStore } from "@/zustand";
 const Feed = () => {
   
   const { posts } = useStore() as Store;
+  
   return (
     <>
       {posts!.map((post) => {

@@ -21,9 +21,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/api";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
-  const { user, loadCurrentUserData } = useStore() as Store
+  const { user, loadCurrentUserData } = useStore() as Store;
+  const navigate = useNavigate();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const handleClick = () => {
     hiddenFileInput.current?.click();
@@ -37,8 +39,6 @@ const EditProfile = () => {
       reader.onloadend = () => {
         if (reader.result instanceof ArrayBuffer) {
           const buffer = reader.result;
-          const formData = new FormData();
-          formData.append("profilepicture", new Blob([buffer]));
           form.setValue("profilepicture", new Blob([buffer]));
         }
       };
@@ -102,8 +102,8 @@ const EditProfile = () => {
       body: formData,
       credentials: "include",
     });
-
     loadCurrentUserData();
+    navigate("/profile");
   };
 
   return (
@@ -134,11 +134,14 @@ const EditProfile = () => {
                     />
                     <AvatarFallback>{user!.username}</AvatarFallback>
                   </Avatar>
-                  <img
-                    src="../img/profile-edit.svg"
-                    className="z-10 absolute top-[15rem] left-[60%] sm:left-[54%] sm:top-[16.5rem]"
-                    onClick={handleClick}
-                  />
+              <div className="relative">
+                    <div className="z-10 absolute bottom-[0.5rem] left-[72%] w-full">
+                      <img
+                        src="../img/profile-edit.svg"
+                        onClick={handleClick}
+                      />
+                    </div>
+              </div>
                   <FormControl>
                     <Input
                       type="file"
@@ -161,7 +164,7 @@ const EditProfile = () => {
                   <FormControl>
                     <Input
                       {...field}
-                      className="min-w-[300px] bg-black-50 border-none"
+                      className="min-w-[300px] bg-black-50 border-none dark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />
@@ -176,7 +179,7 @@ const EditProfile = () => {
                   <FormControl>
                     <Input
                       {...field}
-                      className="min-w-[300px] bg-black-50 border-none"
+                      className="min-w-[300px] bg-black-50 border-none dark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />
@@ -191,7 +194,7 @@ const EditProfile = () => {
                   <FormControl>
                     <Input
                       {...field}
-                      className="min-w-[300px] bg-black-50 border-none"
+                      className="min-w-[300px] bg-black-50 border-none dark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />
@@ -206,7 +209,7 @@ const EditProfile = () => {
                   <FormControl>
                     <Input
                       {...field}
-                      className="min-w-[300px] bg-black-50 border-none"
+                      className="min-w-[300px] bg-black-50 border-none dark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />
@@ -222,7 +225,7 @@ const EditProfile = () => {
                     <Input
                       {...field}
                       type="date"
-                      className="min-w-[300px] bg-black-50 border-none"
+                      className="min-w-[300px] bg-black-50 border-none dark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />
@@ -237,7 +240,7 @@ const EditProfile = () => {
                   <FormControl>
                     <Input
                       {...field}
-                      className="min-w-[300px] bg-black-50 border-none"
+                      className="min-w-[300px] bg-black-50 border-none dark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />
@@ -253,7 +256,7 @@ const EditProfile = () => {
                     <Input
                       {...field}
                       type="tel"
-                      className="min-w-[300px] bg-black-50 border-none"
+                      className="min-w-[300px] bg-black-50 border-none dark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />
@@ -266,7 +269,7 @@ const EditProfile = () => {
               render={({ field }) => (
                 <FormItem>
                   <Select onValueChange={field.onChange}>
-                    <FormControl className="min-w-[300px] bg-black-50 border-none">
+                    <FormControl className="min-w-[300px] bg-black-50 border-none dark:bg-black-500">
                       <SelectTrigger>
                         <SelectValue
                           placeholder={
@@ -295,7 +298,7 @@ const EditProfile = () => {
                     <Input
                       {...field}
                       type="url"
-                      className="min-w-[300px] bg-black-50 border-none"
+                      className="min-w-[300px] bg-black-50 border-none dark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />

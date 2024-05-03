@@ -10,7 +10,7 @@ const ProfileModal = () => {
             <img src="../img/more.svg" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] top-[80%] rounded-t-[40px]">
+        <DialogContent className="sm:max-w-[425px] top-[75%] rounded-t-[40px]">
           <div className="grid gap-4 py-4">
             <div className="flex items-center space-x-2 font-semibold">
               <img src="../img/settings.svg" />
