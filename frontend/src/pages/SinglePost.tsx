@@ -1,12 +1,10 @@
 import AddCommentForm from "@/components/AddCommentForm";
 import Comments from "@/components/Comments";
-import FeedCard from "@/components/FeedCard";
 import FeedHeader from "@/components/FeedHeader";
 import { addLike, getSinglePost, getUserData } from "@/lib/api";
 import { Store, useStore } from "@/zustand";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 const SinglePost = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -15,7 +13,6 @@ const SinglePost = () => {
 
   const [singlePost, setSinglePost] = useState();
   const [authorDetails, setAuthorDetails] = useState([]);
-  const [userData, setUserData] = useState();
   const { user } = useStore() as Store;
   const [isLiked, setIsLiked] = useState(singlePost?.likes.includes(user?._id));
   const [isClicked, setIsClicked] = useState(false);
@@ -30,6 +27,7 @@ const SinglePost = () => {
     await getSinglePost(postId).then((json) => {
       setSinglePost(json);
       getAuthorDetails(json.authorId);
+      console.log(authorDetails[0]);
     });
   };
 

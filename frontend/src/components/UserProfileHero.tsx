@@ -3,17 +3,38 @@ import { Separator } from "@/components/ui/separator";
 import { Avatar } from "@/components/ui/avatar";
 import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Post, useStore } from "@/zustand";
+import { Button } from "./ui/button";
+import { followUser, unfollowUser } from "@/lib/api";
 import { useEffect, useState } from "react";
 
-const ProfileHero = () => {
+const UserProfileHero = ({ profile }) => {
   const { user, getPostsByUserId } = useStore();
+  const [followers, setFollowers] = useState(profile.followers);
+  const [isFollowing, setIsFollowing] = useState(
+    profile?.followers.includes(user!._id)
+  );
   const [posts, setPosts] = useState<Post[]>(null);
   useEffect(() => {
-    getPostsByUserId(user._id).then((json) => {
+    getPostsByUserId(profile._id).then((json) => {
       setPosts(json);
-      console.log(json);
     });
-  }, [user._id, getPostsByUserId]);
+  }, [profile._id, getPostsByUserId]);
+
+  const handleFollow = async (userId, isFollowing) => {
+    try {
+      if (isFollowing) {
+        await unfollowUser(userId);
+        setIsFollowing(false);
+        setFollowers(followers.filter((follower) => follower !== user!._id));
+      } else {
+        await followUser(userId);
+        setIsFollowing(true);
+        setFollowers([...followers, user!._id]);
+      }
+    } catch (error) {
+      console.error("Fehler beim Folgen/Entfolgen des Benutzers:", error);
+    }
+  };
 
   return (
     <>
@@ -22,25 +43,18 @@ const ProfileHero = () => {
           <div className="flex flex-col items-center gap-4">
             <Avatar className="w-40 h-40 border">
               <AvatarImage
-                src={user!.profilePictureUrl}
+                src={profile.profilePictureUrl}
                 className="w-full h-full object-cover"
               />
-              <AvatarFallback>{user!.username}</AvatarFallback>
+              <AvatarFallback>{profile.username}</AvatarFallback>
             </Avatar>
-            <a href={`http://localhost:5173/edit-profile/${user!._id}`}>
-              <div className="relative w-20">
-                <div className="absolute bottom-3 left-[90%] sm:left-[54%] sm:top-[40%] w-full">
-                  <img src="../img/profile-edit.svg" />
-                </div>
-              </div>
-            </a>
             <div className="text-3xl font-bold">{user!.fullname}</div>
-            <div className="text-xl">{user!.job}</div>
+            <div className="text-xl">{profile.job}</div>
             <div className="text-lg font-normal text-black-500">
               {user!.bio}
             </div>
             <div className="text-lg font-normal text-black-700">
-              <a href={`${user!.website}`}>{user!.website}</a>
+              <a href={`${profile.website}`}>{profile.website}</a>
             </div>
             <div className="flex h-5 items-center space-x-4 text-sm">
               {" "}
@@ -49,15 +63,21 @@ const ProfileHero = () => {
               </div>
               <Separator orientation="vertical" />
               <div>
-                <span className="font-bold">{user!.followers.length}</span>{" "}
+                <span className="font-bold">{profile.followers.length}</span>{" "}
                 Follower
               </div>
               <Separator orientation="vertical" />
               <div>
-                <span className="font-bold">{user!.following.length}</span>{" "}
-                Following
+                <span className="font-bold">{followers.length}</span> Following
               </div>
             </div>
+            <Button
+              type="submit"
+              className="bg-primary-500 hover:bg-primary-500 sm:bg-primary-100 rounded-3xl min-w-[300px] mb-6 "
+              onClick={() => handleFollow(profile._id, isFollowing)}
+            >
+              {isFollowing ? "Unfollow" : "Follow"}
+            </Button>
             <Separator className="my-4" />
           </div>
         </CardHeader>
@@ -66,4 +86,4 @@ const ProfileHero = () => {
   );
 };
 
-export default ProfileHero;
+export default UserProfileHero;

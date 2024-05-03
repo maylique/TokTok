@@ -12,8 +12,7 @@ import "../components/animations.css";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Header = () => {
-    const { logout } = useStore() as { logout: () => void }
-    
+  const { logout } = useStore();
   return (
     <>
       <header className="flex m-3 justify-between items-center">
