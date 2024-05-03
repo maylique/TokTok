@@ -3,7 +3,7 @@ import { Switch } from "@radix-ui/react-switch";
 import { useStore } from "@/zustand";
 
 const Header = () => {
-    const { logout } = useStore();
+    const { logout } = useStore() as { logout: () => void }
     
   return (
     <>

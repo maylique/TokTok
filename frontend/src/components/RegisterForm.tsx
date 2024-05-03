@@ -10,12 +10,12 @@ const RegisterForm = () => {
 		event.preventDefault();
 		const form = event.target;
 		const inputData = new FormData(form);
-    // try to get data from form and navigate to Home 
+    // try to get data from form and navigate to verify 
 		try {
 			const response = await api.post("users/register", { body: inputData });
 			const json = await response.json();
 			console.log(json);
-			navigate("/login");
+			navigate("/verify/:token");
 		} catch (err) {
 			console.error(err);
 		}

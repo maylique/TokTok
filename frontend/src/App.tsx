@@ -11,6 +11,7 @@ import Search from "./pages/Search";
 import NewPost from "./pages/NewPost";
 import { ThemeProvider } from "./provider/ThemeProvider";
 import SinglePost from "./pages/SinglePost";
+import VerifyMail from "./pages/VerifyMail";
 
 function App() {
   const { user, loadCurrentUserData, logout } = useStore() as Store;
@@ -33,6 +34,7 @@ function App() {
           <Route path="/feed" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verify" element={<VerifyMail/>} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit-profile/:userId" element={<EditProfile />} />
           <Route path="/search" element={<Search />} />
