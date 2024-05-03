@@ -8,28 +8,27 @@ const SearchFunc = () => {
 
   const { users, user, loadCurrentUserData } = useStore() as Store;
 
-  const filterUsers = () => {
-    if (!searchItem.trim()) {
-      const excludeOwnId = users!.filter(
-        (ownUser) => ownUser._id !== user!._id
-      );
-      setFilteredUsers(excludeOwnId);
-    } else {
-      const filtered = users!.filter((userList) =>
-        userList.username.toLowerCase().includes(searchItem.toLowerCase())
-      );
-      const excludeOwnId = filtered!.filter(
-        (ownUser) => ownUser._id !== user!._id
-      );
-      setFilteredUsers(excludeOwnId);
-    }
-  };
-
   const handleSearchInput = (e) => {
     setSearchItem(e.target.value);
   };
 
   useEffect(() => {
+    const filterUsers = () => {
+      if (!searchItem.trim()) {
+        const excludeOwnId = users!.filter(
+          (ownUser) => ownUser._id !== user!._id
+        );
+        setFilteredUsers(excludeOwnId);
+      } else {
+        const filtered = users!.filter((userList) =>
+          userList.username.toLowerCase().includes(searchItem.toLowerCase())
+        );
+        const excludeOwnId = filtered!.filter(
+          (ownUser) => ownUser._id !== user!._id
+        );
+        setFilteredUsers(excludeOwnId);
+      }
+    };
     filterUsers();
   }, [searchItem, users, user]);
 
