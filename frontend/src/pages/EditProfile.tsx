@@ -23,7 +23,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/lib/api";
 import { useNavigate } from "react-router-dom";
-import { Label } from "@/components/ui/label";
 
 const EditProfile = () => {
   const { user, loadCurrentUserData } = useStore() as Store;
