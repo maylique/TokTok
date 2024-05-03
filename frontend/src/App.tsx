@@ -11,6 +11,7 @@ import Search from "./pages/Search";
 import NewPost from "./pages/NewPost";
 import { ThemeProvider } from "./provider/ThemeProvider";
 import SinglePost from "./pages/SinglePost";
+import TabBar from "./components/TabBar";
 
 function App() {
   const { user, loadCurrentUserData, logout } = useStore() as Store;

@@ -1,28 +1,27 @@
-import nodemailer from "nodemailer";
 
-const mail = nodemailer.createTransport({
-  service: 'Gmail',
-  auth: {
-    user: process.env.MAILTRAP_USER,
-    pass: process.env.MAILTRAP_PASSWORD,
-  },
-});
+import nodemailer from 'nodemailer';
 
-export const sendVerificationEmail = (email, verificationLink) => {
-  const mailOptions = {
-    from: process.env.MAILTRAP_USER,
-    to:email,
-    subject: "Verify your email",
-    html: `
-      <h1>Verify your email</h1>
-      <p>Click <a href="${verificationLink}">here</a> to verify your email.</p>`
-  }
+export const sendMail = async (email, subject, text) => {
+	try {
+		const transporter = nodemailer.createTransport({
+			host: process.env.HOST,
+			port: Number(process.env.EMAIL_PORT),
+			auth: {
+				user: process.env.USER,
+				pass: process.env.PASS,
+			},
+		});
 
-  mail.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  })
-}
+		await transporter.sendMail({
+			from: process.env.TESTMAIL,
+			to: email,
+			subject: subject,
+			text: text,
+		});
+		console.log("email sent successfully");
+	} catch (error) {
+		console.log("email not sent!");
+		console.log(error);
+		return error;
+	}
+};
