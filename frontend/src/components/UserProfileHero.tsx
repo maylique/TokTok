@@ -6,9 +6,12 @@ import { Post, useStore } from "@/zustand";
 import { Button } from "./ui/button";
 import { followUser, unfollowUser } from "@/lib/api";
 import { useEffect, useState } from "react";
+import { set } from "react-hook-form";
 
 const UserProfileHero = ({ profile }) => {
   const { user, getPostsByUserId } = useStore();
+  const [followers, setFollowers] = useState(profile.followers);
+  const [following, setFollowing] = useState(profile.following);
   const [isFollowing, setIsFollowing] = useState(
     profile?.followers.includes(user!._id)
   );
@@ -24,9 +27,11 @@ const UserProfileHero = ({ profile }) => {
       if (isFollowing) {
         await unfollowUser(userId);
         setIsFollowing(false);
+        setFollowers(followers.filter((follower) => follower !== user!._id));
       } else {
         await followUser(userId);
         setIsFollowing(true);
+        setFollowers([...followers, user!._id]);
       }
     } catch (error) {
       console.error("Fehler beim Folgen/Entfolgen des Benutzers:", error);
@@ -65,8 +70,7 @@ const UserProfileHero = ({ profile }) => {
               </div>
               <Separator orientation="vertical" />
               <div>
-                <span className="font-bold">{profile.following.length}</span>{" "}
-                Following
+                <span className="font-bold">{followers.length}</span> Following
               </div>
             </div>
             <Button
