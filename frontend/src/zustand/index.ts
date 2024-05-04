@@ -43,8 +43,9 @@ export interface Post {
   authorId: User;
   imageUrl: string;
   likes: string[];
-  comments: string[];
+  comments: Comment[];
   caption: string;
+  date: string;
 }
 
 export interface Comment {
@@ -52,6 +53,8 @@ export interface Comment {
   authorId: string;
   postId: string;
   content: string;
+  likes: string[];
+  date: string;
 }
 
 export interface Store {
