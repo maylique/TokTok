@@ -72,11 +72,11 @@ const SearchFunc = () => {
           {filteredUsers.map((filteredUser) => {
             const isFollowing = filteredUser?.followers.includes(user!._id);
             return (
-        <a href={`../profile/${filteredUser._id}`}>
-                <div
-                  key={filteredUser._id}
-                  className="w-full justify-start items-center gap-3 inline-flex"
-                >
+              <div
+                key={filteredUser._id}
+                className="w-full justify-start items-center gap-3 inline-flex"
+              >
+                <a href={`../profile/${filteredUser._id}`} className="w-full justify-start items-center gap-3 inline-flex">
                   <div className="grow shrink basis-0 h-[60px] justify-start items-center gap-5 flex">
                     <div className="justify-center items-center flex">
                       <img
@@ -93,22 +93,22 @@ const SearchFunc = () => {
                       </div>
                     </div>
                   </div>
-                  <div
-                    className={`px-4 py-1.5 rounded-[100px] justify-center items-center gap-1 flex ${
-                      isFollowing
-                        ? "bg-white text-primary-500 border-2 border-primary-500"
-                        : "bg-primary-500 text-primary-50"
-                    }`}
+                </a>
+                <div
+                  className={`px-4 py-1.5 rounded-[100px] justify-center items-center gap-1 flex ${
+                    isFollowing
+                      ? "bg-white text-primary-500 border-2 border-primary-500"
+                      : "bg-primary-500 text-primary-50"
+                  }`}
+                >
+                  <button
+                    onClick={() => handleFollow(filteredUser._id, isFollowing)}
+                    className={`text-center text-sm font-medium font-['Urbanist'] leading-tight tracking-tight `}
                   >
-                    <button
-                      onClick={() => handleFollow(filteredUser._id, isFollowing)}
-                      className={`text-center text-sm font-medium font-['Urbanist'] leading-tight tracking-tight `}
-                    >
-                      {isFollowing ? "Following" : "Follow"}
-                    </button>
-                  </div>
+                    {isFollowing ? "Following" : "Follow"}
+                  </button>
                 </div>
-        </a>
+              </div>
             );
           })}
         </div>
