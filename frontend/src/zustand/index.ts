@@ -105,7 +105,7 @@ export const useStore = create<Store>()(
             users: allUsers,
           });
         } catch (error) {
-          console.error(error);
+          set({ user: null });
         }
       },
       getUserById: async (userId: string) => {
