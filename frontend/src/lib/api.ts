@@ -18,3 +18,15 @@ export const followUser = (id) =>
   api.post(`users/${id}/follow`, { credentials: "include" }).json();
 export const unfollowUser = (id) =>
   api.post(`users/${id}/unfollow`, { credentials: "include" }).json();
+export const addCommentLike = (commentId, userId) =>
+  api
+    .post(`comments/like/${commentId}/${userId}`, { credentials: "include" })
+    .json();
+export const deletePost = (id, userId) =>
+  api.delete(`posts/delete/${id}/${userId}`, { credentials: "include" }).json();
+export const deleteMainComment = (postId, commentId, userId) =>
+  api
+    .delete(`posts/deleteComment/${postId}/${commentId}/${userId}`, {
+      credentials: "include",
+    })
+    .json();

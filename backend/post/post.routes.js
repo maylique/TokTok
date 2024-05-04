@@ -23,7 +23,11 @@ router.get("/user/:userId", checkAuth, getPostsByUserId);
 router.get("/:id/comments", checkAuth, getCommentsByPost);
 router.post("/:userId", [checkAuth, mult.single("imageUrl")], createPost);
 router.post("/:id/:userId", checkAuth, addComment);
-router.delete("/:id", checkAuth, deletePost);
-router.delete("/:id/:commentId", checkAuth, deleteComment);
+router.delete("/delete/:id/:userId", checkAuth, deletePost);
+router.delete(
+  "/deleteComment/:postId/:commentId/:userId",
+  checkAuth,
+  deleteComment
+);
 
 export default router;

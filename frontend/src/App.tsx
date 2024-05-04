@@ -18,9 +18,7 @@ function App() {
 
   const navigate = useNavigate();
   useEffect(() => {
-    if (
-      !user && window.location.pathname !== "/register"
-    ) {
+    if (!user && window.location.pathname !== "/register") {
       navigate("/login");
     }
 
@@ -44,7 +42,11 @@ function App() {
           <Route path="*" element={<button onClick={logout}>404</button>} />
         </Routes>
       </ThemeProvider>
-      { window.location.pathname === "/login" || window.location.pathname === "/register" ? null : <TabBar />}
+      {window.location.pathname.startsWith("/post") ||
+      window.location.pathname === "/login" ||
+      window.location.pathname === "/register" ? null : (
+        <TabBar />
+      )}
     </>
   );
 }

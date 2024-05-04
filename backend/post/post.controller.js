@@ -79,21 +79,54 @@ export const addComment = async (req, res) => {
   }
 };
 export const deletePost = async (req, res) => {
-  const { id } = req.params;
-  const post = await Post.findByIdAndDelete(id);
-  if (!post) res.status(401).json({ message: "Post not deleted" });
-  res.json(post);
+  const { id, userId } = req.params;
+  const post = await Post.findById(id);
+
+  if (!post) {
+    return res.status(404).json({ message: "Post not found" });
+  }
+
+  if (post.authorId.toString() !== userId) {
+    return res
+      .status(403)
+      .json({ message: "Unauthorized to delete this post" });
+  }
+
+  const deletedPost = await Post.findByIdAndDelete(id);
+  if (!deletedPost) {
+    return res.status(401).json({ message: "Post not deleted" });
+  }
+
+  res.json(deletedPost);
 };
 
 export const deleteComment = async (req, res) => {
-  const { id, commentId } = req.params;
-  const comment = await Comment.findByIdAndDelete(commentId);
-  if (!comment) res.status(401).json({ message: "Comment not deleted" });
+  const { postId, commentId, userId } = req.params;
+
+  const comment = await Comment.findById(commentId);
+  if (!comment) {
+    return res.status(404).json({ message: "Comment not found" });
+  }
+
+  if (comment.authorId.toString() !== userId) {
+    return res
+      .status(403)
+      .json({ message: "Unauthorized to delete this comment" });
+  }
+
+  const deletedComment = await Comment.findByIdAndDelete(commentId);
+  if (!deletedComment) {
+    return res.status(401).json({ message: "Comment not deleted" });
+  }
+
   const updatePost = await Post.findByIdAndUpdate(
-    { _id: id },
+    { _id: postId },
     { $pull: { comments: commentId } }
   );
-  if (!updatePost) res.status(401).json({ message: "Comment not deleted" });
+  if (!updatePost) {
+    return res.status(401).json({ message: "Comment not deleted from post" });
+  }
+
   res.json(updatePost);
 };
 

@@ -8,7 +8,6 @@ const TabBar = () => {
 
   useEffect(() => {
     window.onscroll = function () {
-      let lastScrollTop = 0;
       const st = window.scrollY || document.documentElement.scrollTop;
       if (st > lastScrollTop) {
         setIsVisible(false);

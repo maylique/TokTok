@@ -1,13 +1,16 @@
 import { useTheme } from "@/provider/ThemeProvider";
+import { Switch } from "@/components/ui/switch";
 
 export function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   return (
     <div>
-      <button onClick={() => setTheme("light")}>🌝</button>
-      <button onClick={() => setTheme("dark")}>🌚</button>
-      <button onClick={() => setTheme("system")}>💻</button>
+      <Switch
+        className="m-2"
+        checked={theme === "dark"}
+        onCheckedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+      />
     </div>
   );
 }
