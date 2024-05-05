@@ -19,6 +19,7 @@ export interface User {
   website: string;
   gender: string;
   fullname: string;
+  isAuthenticated: boolean;
 }
 
 export interface AllUsers {

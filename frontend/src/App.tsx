@@ -3,8 +3,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import { useEffect } from "react";
-import { Store, useStore } from "@/zustand";
+import { useEffect, useState } from "react";
+import { User, useStore } from "@/zustand";
 import EditProfile from "./pages/EditProfile";
 import SplashScreen from "./components/SplashScreen";
 import Search from "./pages/Search";
@@ -13,16 +13,33 @@ import { ThemeProvider } from "./provider/ThemeProvider";
 import SinglePost from "./pages/SinglePost";
 import TabBar from "./components/TabBar";
 import UserProfile from "./pages/UserProfile";
+import { api } from "./lib/api";
 
 function App() {
-  const { user, loadCurrentUserData, logout } = useStore() as Store;
-
+  const { user, loadCurrentUserData, logout } = useStore();
   const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const response = await api.get("auth/checkauth", {
+        credentials: "include",
+      });
+      const data = (await response.json()) as User;
+      if (data.isAuthenticated) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    };
+    checkAuth();
+  }, []);
+
   useEffect(() => {
     if (!user && window.location.pathname !== "/register") {
       navigate("/login");
     }
-    if (!user && localStorage.getItem("token")) {
+    if (!user && isAuthenticated) {
       logout();
     }
 
@@ -33,7 +50,7 @@ function App() {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate, loadCurrentUserData]);
+  }, [isAuthenticated]);
 
   return (
     <>
