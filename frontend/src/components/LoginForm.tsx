@@ -29,7 +29,7 @@ const LoginForm = () => {
   };
   return (
     <div className="w-[428px] h-[882px] px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex overflow-y-scroll">
-      <div className="w-[380px] text-black-800 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
+      <div className="w-[380px] text-black-800 dark:text-black-50 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
         Login to your
         <br />
         Account
@@ -45,7 +45,7 @@ const LoginForm = () => {
         <div className="h-[215px] flex-col justify-center items-center gap-5 flex">
           <div className="w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex">
             <input
-              className="w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
+              className="dark:text-black w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
               type="email"
               name="email"
               placeholder="email"
@@ -53,7 +53,7 @@ const LoginForm = () => {
           </div>
           <div className="w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex">
             <input
-              className="w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
+              className="dark:text-black w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
               type="password"
               name="password"
               placeholder="password"
@@ -68,7 +68,9 @@ const LoginForm = () => {
               Sign In
             </button>
           </div>
-            <div className="w-[380px] text-center text-primary-500 text-base font-semibold font-['Urbanist'] leading-snug tracking-tight">Forgot the password?</div>
+          <div className="w-[380px] text-center text-primary-500 text-base font-semibold font-['Urbanist'] leading-snug tracking-tight">
+            Forgot the password?
+          </div>
         </div>
       </form>
       <div className="self-stretch justify-center items-center gap-2 inline-flex">

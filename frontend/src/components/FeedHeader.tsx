@@ -26,7 +26,7 @@ const FeedHeader = ({ profile, deletePost, where }) => {
               <p className="text-black-400 text-sm">{profile?.job}</p>
             ) : null}
           </div>
-        </a>
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger>
             <img src="/img/more.svg" alt="" />
