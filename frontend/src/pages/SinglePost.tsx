@@ -29,7 +29,6 @@ const SinglePost = () => {
     });
   };
 
-
   const [animateLike, setAnimateLike] = useState(false);
   const handleLike = async () => {
     if (!singlePost.likes.includes(user?._id)) {
@@ -60,10 +59,12 @@ const SinglePost = () => {
         </div>
         <img src="" alt="" />
       </header>
-      <FeedHeader profile={authorDetails[0]} />
+      <FeedHeader profile={authorDetails} />
       <main className="m-2">
         <p className="m-3">{singlePost?.caption}</p>
-        <p className="m-3 text-black-300 dark:text-black-50">{getTimeSince(singlePost?.date)}</p>
+        <p className="m-3 text-black-300 dark:text-black-50">
+          {getTimeSince(singlePost?.date)}
+        </p>
         {/* <FeedCard post={singlePost} refresh={refreshSinglePost} /> */}
         <section>
           <div className="m-3 flex">
