@@ -59,7 +59,9 @@ const SinglePost = () => {
         </div>
         <img src="" alt="" />
       </header>
-      <FeedHeader profile={authorDetails} />
+    {singlePost && authorDetails && (
+      <FeedHeader profile={authorDetails[0]} />
+    )}
       <main className="m-2">
         <p className="m-3">{singlePost?.caption}</p>
         <p className="m-3 text-black-300 dark:text-black-50">
