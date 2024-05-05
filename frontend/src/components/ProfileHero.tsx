@@ -27,7 +27,7 @@ const ProfileHero = () => {
               />
               <AvatarFallback>{user!.username}</AvatarFallback>
             </Avatar>
-            <a href={`http://localhost:5173/edit-profile/${user!._id}`}>
+            <a href={`/edit-profile/${user!._id}`}>
               <div className="relative w-20">
                 <div className="absolute bottom-3 left-[90%] sm:left-[54%] sm:top-[40%] w-full">
                   <img src="../img/profile-edit.svg" />
