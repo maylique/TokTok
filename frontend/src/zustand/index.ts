@@ -70,6 +70,8 @@ export interface Store {
   loadCurrentUserData: () => void;
   logout: () => void;
   getPostsByUserId: (userId: string) => Promise<Post[]>;
+  isAuthenticated: boolean;
+  authentication: (value: boolean) => void;
 }
 
 export const useStore = create<Store>()(
@@ -80,6 +82,7 @@ export const useStore = create<Store>()(
       comments: [],
       users: [],
       userId: null,
+      isAuthenticated: false,
       loadCurrentUserData: async () => {
         try {
           const currentUser = (await api
@@ -129,8 +132,10 @@ export const useStore = create<Store>()(
       logout: async () => {
         await api.post("auth/logout", { credentials: "include" });
         set({ user: null });
+        set({ isAuthenticated: false });
         window.location.href = "/login";
       },
+      authentication: (value) => set({ isAuthenticated: value }),
     }),
     {
       name: "zustand-store",
