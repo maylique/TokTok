@@ -39,7 +39,7 @@ const ProfileHero = () => {
             <div className="text-lg font-normal text-black-500">
               {user!.bio}
             </div>
-            <div className="text-lg font-normal text-black-700">
+            <div className="text-lg font-normal text-black-700 text-center">
               <a href={`${user!.website}`}>{user!.website}</a>
             </div>
             <div className="flex h-5 items-center space-x-4 text-sm">
