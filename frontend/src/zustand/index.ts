@@ -55,6 +55,8 @@ export interface Comment {
   content: string;
   likes: string[];
   date: string;
+  comments: Comment[];
+  value: string;
 }
 
 export interface Store {

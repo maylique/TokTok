@@ -7,13 +7,13 @@ export const getAllUsers = () =>
   api.get("users", { credentials: "include" }).json();
 export const getFeed = () =>
   api.get("posts", { credentials: "include" }).json();
-export const getUserData = (id: string): Promise<User[]> =>
+export const getUserData = (id: string): Promise<User> =>
   api.get(`users/${id}`, { credentials: "include" }).json();
 export const addLike = (postId, userId) =>
   api.post(`posts/like/${postId}/${userId}`, { credentials: "include" }).json();
 export const getSinglePost = (id: string): Promise<Post> =>
   api.get(`posts/${id}`, { credentials: "include" }).json();
-export const getComments = (id) =>
+export const getComments = (id: string): Promise<Comment[]> =>
   api.get(`comments/${id}`, { credentials: "include" }).json();
 export const followUser = (id) =>
   api.post(`users/${id}/follow`, { credentials: "include" }).json();

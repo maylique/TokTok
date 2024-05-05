@@ -7,11 +7,12 @@ import { Store, useStore } from "@/zustand";
 
 const AddReply = ({ postId, userId, refresh, setReply }) => {
   const { user } = useStore() as Store;
-  const commentRef = useRef();
+  const commentRef = useRef<HTMLInputElement>();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (commentRef && commentRef.current) {
     try {
-      const content = await api
+      await api
         .post(`comments/reply/${postId}/${userId}`, {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -23,6 +24,7 @@ const AddReply = ({ postId, userId, refresh, setReply }) => {
       commentRef.current.value = "";
     } catch (error) {
       console.error(error);
+    }
     }
   };
 
