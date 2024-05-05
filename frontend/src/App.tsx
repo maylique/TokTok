@@ -52,7 +52,8 @@ function App() {
           <Route path="profile/:profileId" element={<UserProfile />} />
         </Routes>
       </ThemeProvider>
-      {window.location.pathname === "/login" ||
+      {window.location.pathname.startsWith("/post") ||
+      window.location.pathname === "/login" ||
       window.location.pathname === "/register" ? null : (
         <TabBar />
       )}

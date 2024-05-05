@@ -8,23 +8,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const FeedHeader = ({ profile }) => {
+const FeedHeader = ({ profile, deletePost, where }) => {
   return (
     <>
-      <div className="flex mb-3 justify-between">
-        <a href={`profile/${profile?._id}`}>
-          <div className="flex">
-            <Avatar className="m-1">
-              <AvatarImage
-                className=" object-cover"
-                src={profile?.profilePictureUrl}
-              />
-              <AvatarFallback>{profile?.username}</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col">
-              <h5>{profile?.username}</h5>
-              <p className="text-gray-500">{profile?.job}</p>
-            </div>
+      <div className="flex m-3 justify-between">
+        <div className="flex">
+          <Avatar className="m-1">
+            <AvatarImage
+              className=" object-cover"
+              src={profile?.profilePictureUrl}
+            />
+            <AvatarFallback>{profile?.username}</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col justify-center ml-3">
+            <h5>{profile?.username}</h5>
+            {profile?.job ? (
+              <p className="text-black-400 text-sm">{profile?.job}</p>
+            ) : null}
           </div>
         </a>
         <DropdownMenu>
@@ -35,9 +35,14 @@ const FeedHeader = ({ profile }) => {
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
             <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>Subscription</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                deletePost();
+              }}
+            >
+              Delete {where}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

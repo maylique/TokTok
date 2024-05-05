@@ -1,25 +1,17 @@
-import {
-  addCommentLike,
-  deleteMainComment,
-  getComments,
-  getUserData,
-} from "@/lib/api";
+import { addCommentLike, getComments, getUserData } from "@/lib/api";
 import { useEffect, useState } from "react";
 import FeedHeader from "./FeedHeader";
-
-import { Comment, User, useStore } from "@/zustand";
+import { useStore } from "@/zustand";
 import { getTimeSince } from "@/lib/functions";
 import AddReply from "./AddReply";
-import Reply from "./Reply";
 
-const Comments = ({ id, commentData, refresh }) => {
-  const [comments, setComments] = useState<Comment>();
-  const [author, setAuthor] = useState<User[]>();
-  const { user } = useStore()
-  
+const Reply = ({ replyData, refresh }) => {
+  const [comments, setComments] = useState();
+  const [author, setAuthor] = useState();
+  const { user } = useStore() as Fulldata & UserData;
   const refreshComments = async () => {
-    await getComments(commentData).then((json) => {
-      setComments(json as Comment);
+    await getComments(replyData).then((json) => {
+      setComments(json);
     });
     refresh();
   };
@@ -32,7 +24,6 @@ const Comments = ({ id, commentData, refresh }) => {
 
   useEffect(() => {
     refreshComments();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -41,28 +32,9 @@ const Comments = ({ id, commentData, refresh }) => {
     }
   }, [comments]);
 
-  const getTimeSince = (dateString) => {
-    const postDate = new Date(dateString);
-    const now = new Date();
-    const difference = now.getDate() - postDate.getDate(); // Differenz in Millisekunden
-    const hours = Math.floor(difference / 3600000); // Umrechnung in Stunden
-
-    if (hours > 24 && hours < 48) {
-      const days = Math.floor(hours / 24);
-      return `${days} day ago`;
-    } else if (hours > 48) {
-      const days = Math.floor(hours / 24);
-      return `${days} days ago`;
-    } else if (hours === 1) {
-      return "1 hour ago";
-    }
-    return `${hours} hours ago`;
-  };
-    
   const [animateLike, setAnimateLike] = useState(false);
 
   const handleLike = async () => {
-
     await addCommentLike(comments._id, user?._id);
     if (!comments?.likes.includes(user?._id)) {
       setAnimateLike(true);
@@ -75,11 +47,6 @@ const Comments = ({ id, commentData, refresh }) => {
 
   const openReply = () => {
     setReplyOpen(!replyOpen);
-  };
-
-  const deleteComment = async () => {
-    await deleteMainComment(id, comments._id, user!._id);
-    refresh();
   };
 
   // TESTAREA
@@ -97,14 +64,7 @@ const Comments = ({ id, commentData, refresh }) => {
 
   return (
     <>
-      {author ? (
-        <FeedHeader
-          key={author[0]._id}
-          where={"Comment"}
-          deletePost={deleteComment}
-          profile={author[0]}
-        />
-      ) : null}
+      {author ? <FeedHeader profile={author[0]} /> : null}
       <p className="ml-8 mr-8">{comments?.content}</p>
       <section>
         <div className="m-3 flex items-center">
@@ -131,16 +91,6 @@ const Comments = ({ id, commentData, refresh }) => {
           </div>
           <p className="text-black-300 m-2">{getTimeSince(comments?.date)}</p>
         </div>
-        {/* {comments?.comments?.length >= 1
-          ? comments?.comments?.map((reply) => {
-              console.log(reply);
-              return (
-                <div className="ml-10" key={reply._id}>
-                  <Reply replyData={reply} refresh={refreshComments} />
-                </div>
-              );
-            })
-          : null} */}
         {comments?.comments && comments?.comments.length > 0
           ? renderReplies(comments.comments)
           : null}
@@ -148,8 +98,8 @@ const Comments = ({ id, commentData, refresh }) => {
           <AddReply
             postId={comments?._id}
             userId={user?._id}
-            refresh={refreshComments}
             setReply={setReplyOpen}
+            refresh={refreshComments}
           />
         ) : null}
       </section>
@@ -157,4 +107,4 @@ const Comments = ({ id, commentData, refresh }) => {
   );
 };
 
-export default Comments;
+export default Reply;

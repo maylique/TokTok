@@ -1,3 +1,4 @@
+import { User } from "../user/user.model.js";
 import { Comment } from "./comment.model.js";
 
 export const getComments = async (req, res) => {
@@ -17,5 +18,58 @@ export const getSingleComment = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const likeComment = async (req, res) => {
+  try {
+    const { commentId, userId } = req.params;
+
+    const comment = await Comment.findById(commentId);
+
+    const userLiked = comment.likes.includes(userId);
+
+    if (userLiked) {
+      await Comment.findByIdAndUpdate(commentId, { $pull: { likes: userId } });
+    } else {
+      await Comment.findByIdAndUpdate(commentId, { $push: { likes: userId } });
+    }
+
+    res.json(comment);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
+export const addReply = async (req, res) => {
+  const { commentId, userId } = req.params;
+  const { content } = req.body;
+  console.dir("halllllllll", commentId, userId, content);
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const newComment = new Comment({
+      content,
+      username: user.username,
+      authorId: userId,
+    });
+
+    await newComment.save();
+    const updatedComment = await Comment.findByIdAndUpdate(commentId, {
+      $push: { comments: newComment._id },
+    });
+
+    if (!updatedComment) {
+      return res.status(404).json({ message: "comment not found" });
+    }
+
+    res.json({ message: "Reply added", comment: updatedComment });
+  } catch (error) {
+    console.error("Error adding Reply:", error);
+    res.status(500).json({ message: "Failed to add Reply" });
   }
 };

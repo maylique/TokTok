@@ -5,6 +5,8 @@ import { addLike, getSinglePost, getUserData } from "@/lib/api";
 import { Post, User, useStore } from "@/zustand";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { getTimeSince } from "@/lib/functions";
 
 const SinglePost = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -28,7 +30,7 @@ const SinglePost = () => {
     });
   };
 
-  const getTimeSince = (dateString) => {
+    const getTimeSince = (dateString) => {
     const postDate = new Date(dateString);
     const now = new Date();
     const difference = now.getTime() - postDate.getTime();
@@ -43,6 +45,7 @@ const SinglePost = () => {
     }
     return `${hours} hours ago`;
   };
+
 
   const [animateLike, setAnimateLike] = useState(false);
   const handleLike = async () => {
@@ -81,7 +84,7 @@ const SinglePost = () => {
         {/* <FeedCard post={singlePost} refresh={refreshSinglePost} /> */}
         <section>
           <div className="m-3 flex">
-            <div className="flex m-3">
+            <div className="flex m-3 min-w-6">
               <button onClick={handleLike}>
                 <img
                   className={animateLike ? "jello-horizontal" : ""}
@@ -112,8 +115,12 @@ const SinglePost = () => {
       <section className=" border-black-400 border-t pt-3 m-3">
         {singlePost?.comments.map((comment) => {
           return (
-            <div key={comment._id}>
-              <Comments commentData={comment} />
+            <div className=" last-of-type:mb-20" key={comment._id}>
+              <Comments
+                id={singlePost?._id}
+                commentData={comment}
+                refresh={refreshSinglePost}
+              />
             </div>
           );
         })}

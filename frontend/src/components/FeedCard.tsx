@@ -1,4 +1,4 @@
-import { addLike } from "@/lib/api";
+import { addLike, deletePost } from "@/lib/api";
 import { useState } from "react";
 import FeedHeader from "./FeedHeader";
 import { Store, useStore, Post } from "@/zustand";
@@ -23,16 +23,27 @@ const FeedCard = ({ post }: { post: Post }) => {
     loadCurrentUserData();
   };
 
+  const deletePostFromFeed = async () => {
+    await deletePost(post._id, user!._id);
+    loadCurrentUserData();
+  };
+
   return (
     <>
       <section className="m-3">
-        <FeedHeader key={post._id} profile={post.authorId} />
-        <div className="flex justify-center">
+        <FeedHeader
+          where={"Post"}
+          key={post._id}
+          profile={post.authorId}
+          deletePost={deletePostFromFeed}
+        />
+        <div className="flex justify-center flex-col gap-4 items-center">
           <img
-            className="w-96 h-96 object-cover rounded-3xl"
+            className="w-full h-96 object-cover rounded-3xl"
             src={post.imageUrl}
             alt=""
           />
+          <p className="self-start ml-5 mr-5">{post.caption}</p>
         </div>
         <div className="m-3 flex">
           <div className="flex m-3">
