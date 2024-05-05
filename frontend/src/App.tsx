@@ -38,7 +38,7 @@ function App() {
     if (!user && window.location.pathname !== "/register") {
       navigate("/login");
     }
-    if (!authentication) {
+    if (!user && !authentication) {
       logout();
     }
 
@@ -47,9 +47,9 @@ function App() {
     } catch (error) {
       logout();
     }
-    console.log("jo");
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate]);
+  }, [authentication, navigate]);
 
   return (
     <>
