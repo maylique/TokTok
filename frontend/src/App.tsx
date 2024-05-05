@@ -16,8 +16,9 @@ import UserProfile from "./pages/UserProfile";
 import { api } from "./lib/api";
 
 function App() {
-  const { user, loadCurrentUserData, logout, authentication } = useStore();
+  const { user, loadCurrentUserData, logout } = useStore();
   const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -26,9 +27,9 @@ function App() {
       });
       const data = (await response.json()) as User;
       if (data.isAuthenticated) {
-        authentication(true);
+        setIsAuthenticated(true);
       } else {
-        authentication(false);
+        setIsAuthenticated(false);
       }
     };
     checkAuth();
@@ -38,7 +39,7 @@ function App() {
     if (!user && window.location.pathname !== "/register") {
       navigate("/login");
     }
-    if (!user && !authentication) {
+    if (!user && isAuthenticated) {
       logout();
     }
 
@@ -49,7 +50,7 @@ function App() {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authentication, navigate]);
+  }, [isAuthenticated]);
 
   return (
     <>
