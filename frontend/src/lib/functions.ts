@@ -1,14 +1,12 @@
 export const getTimeSince = (dateString) => {
   const postDate = new Date(dateString);
   const now = new Date();
-  const difference = now - postDate; // Difference in milliseconds
-
+  const difference = now.getTime() - postDate.getTime()
   if (difference < 60000) {
     return "a moment ago";
   }
 
-  const hours = Math.floor(difference / 3600000); // Convert to hours
-
+  const hours = Math.floor(difference / 3600000); 
   if (hours >= 1) {
     if (hours > 24 && hours < 48) {
       const days = Math.floor(hours / 24);
@@ -21,7 +19,7 @@ export const getTimeSince = (dateString) => {
     }
     return `${hours} hours ago`;
   } else {
-    const minutes = Math.floor(difference / 60000); // Convert to minutes
+    const minutes = Math.floor(difference / 60000);
     if (minutes === 1) {
       return "1 minute ago";
     }

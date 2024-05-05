@@ -1,14 +1,14 @@
 import { addCommentLike, getComments, getUserData } from "@/lib/api";
 import { useEffect, useState } from "react";
 import FeedHeader from "./FeedHeader";
-import { useStore } from "@/zustand";
+import { Comment, User, useStore } from "@/zustand";
 import { getTimeSince } from "@/lib/functions";
 import AddReply from "./AddReply";
 
 const Reply = ({ replyData, refresh }) => {
-  const [comments, setComments] = useState();
-  const [author, setAuthor] = useState();
-  const { user } = useStore() as Fulldata & UserData;
+  const [comments, setComments] = useState<Comment>();
+  const [author, setAuthor] = useState<User>();
+  const { user } = useStore();
   const refreshComments = async () => {
     await getComments(replyData).then((json) => {
       setComments(json);

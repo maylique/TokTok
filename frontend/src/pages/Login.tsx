@@ -1,10 +1,10 @@
 import LoginForm from "@/components/LoginForm";
-import { useStore, Store } from "@/zustand";
+import { useStore } from "@/zustand";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { user, loadCurrentUserData } = useStore() as Store;
+  const { user, loadCurrentUserData } = useStore()
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {

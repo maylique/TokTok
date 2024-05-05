@@ -4,6 +4,7 @@ import "./tabBar.css";
 
 const TabBar = () => {
   const [isVisible, setIsVisible] = useState(true);
+  let lastScrollTop = 0;
 
   useEffect(() => {
     window.onscroll = function () {
@@ -13,6 +14,7 @@ const TabBar = () => {
       } else {
         setIsVisible(true);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       lastScrollTop = st <= 0 ? 0 : st;
     };
   }, []);

@@ -14,12 +14,12 @@ import Reply from "./Reply";
 
 const Comments = ({ id, commentData, refresh }) => {
   const [comments, setComments] = useState<Comment>();
-  const [author, setAuthor] = useState<User[]>();
-  const { user } = useStore()
-  
+  const [author, setAuthor] = useState<User>();
+  const { user } = useStore();
+
   const refreshComments = async () => {
     await getComments(commentData).then((json) => {
-      setComments(json as Comment);
+      setComments(json);
     });
     refresh();
   };
@@ -32,6 +32,7 @@ const Comments = ({ id, commentData, refresh }) => {
 
   useEffect(() => {
     refreshComments();
+    console.log(comments);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,28 +42,9 @@ const Comments = ({ id, commentData, refresh }) => {
     }
   }, [comments]);
 
-  const getTimeSince = (dateString) => {
-    const postDate = new Date(dateString);
-    const now = new Date();
-    const difference = now.getDate() - postDate.getDate(); // Differenz in Millisekunden
-    const hours = Math.floor(difference / 3600000); // Umrechnung in Stunden
-
-    if (hours > 24 && hours < 48) {
-      const days = Math.floor(hours / 24);
-      return `${days} day ago`;
-    } else if (hours > 48) {
-      const days = Math.floor(hours / 24);
-      return `${days} days ago`;
-    } else if (hours === 1) {
-      return "1 hour ago";
-    }
-    return `${hours} hours ago`;
-  };
-    
   const [animateLike, setAnimateLike] = useState(false);
 
   const handleLike = async () => {
-
     await addCommentLike(comments._id, user?._id);
     if (!comments?.likes.includes(user?._id)) {
       setAnimateLike(true);
@@ -81,8 +63,6 @@ const Comments = ({ id, commentData, refresh }) => {
     await deleteMainComment(id, comments._id, user!._id);
     refresh();
   };
-
-  // TESTAREA
 
   const renderReplies = (comments) => {
     return comments?.map((comment) => (

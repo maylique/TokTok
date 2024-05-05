@@ -5,14 +5,13 @@ import { addLike, getSinglePost, getUserData } from "@/lib/api";
 import { Post, User, useStore } from "@/zustand";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { getTimeSince } from "@/lib/functions";
 
 const SinglePost = () => {
   const { postId } = useParams<{ postId: string }>();
   const navigate = useNavigate();
   const [singlePost, setSinglePost] = useState<Post | undefined>();
-  const [authorDetails, setAuthorDetails] = useState<User[]>([]);
+  const [authorDetails, setAuthorDetails] = useState<User>();
   const { user } = useStore();
   const [isLiked, setIsLiked] = useState(
     singlePost && user ? singlePost.likes.includes(user._id) : false
@@ -28,22 +27,6 @@ const SinglePost = () => {
       setSinglePost(json);
       getAuthorDetails(json.authorId);
     });
-  };
-
-    const getTimeSince = (dateString) => {
-    const postDate = new Date(dateString);
-    const now = new Date();
-    const difference = now.getTime() - postDate.getTime();
-    const hours = Math.floor(difference / 3600000); // Umrechnung in Stunden
-
-    if (hours > 24 && hours < 48) {
-      const days = Math.floor(hours / 24);
-      return `${days} day ago`;
-    } else if (hours > 48) {
-      const days = Math.floor(hours / 24);
-      return `${days} days ago`;
-    }
-    return `${hours} hours ago`;
   };
 
 
@@ -80,7 +63,7 @@ const SinglePost = () => {
       <FeedHeader profile={authorDetails[0]} />
       <main className="m-2">
         <p className="m-3">{singlePost?.caption}</p>
-        <p className="m-3 text-black-300">{getTimeSince(singlePost?.date)}</p>
+        <p className="m-3 text-black-300 dark:text-black-50">{getTimeSince(singlePost?.date)}</p>
         {/* <FeedCard post={singlePost} refresh={refreshSinglePost} /> */}
         <section>
           <div className="m-3 flex">
