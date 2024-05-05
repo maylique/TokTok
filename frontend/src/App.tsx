@@ -28,7 +28,6 @@ function App() {
       const data = (await response.json()) as User;
       if (data.isAuthenticated) {
         authentication(true);
-        navigate("/feed");
       } else {
         authentication(false);
       }
