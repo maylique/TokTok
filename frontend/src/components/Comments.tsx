@@ -32,7 +32,6 @@ const Comments = ({ id, commentData, refresh }) => {
 
   useEffect(() => {
     refreshComments();
-    console.log(comments);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
