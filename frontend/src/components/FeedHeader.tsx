@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const FeedHeader = ({ profile, deletePost, where }) => {
-  console.log(profile);
   return (
     <>
       <div className="flex m-3 justify-between">

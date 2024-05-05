@@ -11,7 +11,6 @@ const ProfileHero = () => {
   useEffect(() => {
     getPostsByUserId(user._id).then((json) => {
       setPosts(json);
-      console.log(json);
     });
   }, [user._id, getPostsByUserId]);
 
