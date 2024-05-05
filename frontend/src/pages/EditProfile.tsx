@@ -111,7 +111,7 @@ const EditProfile = () => {
     <>
       <header className="m-10">
         <div className="flex items-center gap-5">
-          <a href="http://localhost:5173/profile">
+          <a href="/profile">
             <img src="../img/arrow.svg" />
           </a>
           <p className="text-3xl font-bold">Edit Profile</p>
