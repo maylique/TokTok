@@ -13,20 +13,23 @@ const FeedHeader = ({ profile, deletePost, where }) => {
     <>
       <div className="flex m-3 justify-between">
         <div className="flex">
-          <Avatar className="m-1">
-            <AvatarImage
-              className=" object-cover"
-              src={profile?.profilePictureUrl}
-            />
-            <AvatarFallback>{profile?.username}</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col justify-center ml-3">
-            <h5>{profile?.username}</h5>
-            {profile?.job ? (
-              <p className="text-black-400 text-sm">{profile?.job}</p>
-            ) : null}
-          </div>
+          <a href={`/profile/${profile._id}`} className="flex">
+            <Avatar className="m-1">
+              <AvatarImage
+                className=" object-cover"
+                src={profile?.profilePictureUrl}
+              />
+              <AvatarFallback>{profile?.username}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col justify-center ml-3">
+              <h5>{profile?.username}</h5>
+              {profile?.job ? (
+                <p className="text-black-400 text-sm">{profile?.job}</p>
+              ) : null}
+            </div>
+          </a>
         </div>
+
         <DropdownMenu>
           <DropdownMenuTrigger>
             <img src="/img/more.svg" alt="" />
