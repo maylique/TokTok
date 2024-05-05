@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { loadCurrentUserData, authentication } = useStore();
+  const { loadCurrentUserData, isAuthenticated } = useStore();
   const navigate = useNavigate();
   useEffect(() => {
-    if (authentication) {
+    if (isAuthenticated) {
       loadCurrentUserData();
       navigate("/feed");
     }

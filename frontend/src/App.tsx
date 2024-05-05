@@ -16,7 +16,8 @@ import UserProfile from "./pages/UserProfile";
 import { api } from "./lib/api";
 
 function App() {
-  const { user, loadCurrentUserData, logout, authentication } = useStore();
+  const { isAuthenticated, loadCurrentUserData, logout, authentication } =
+    useStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,14 +33,11 @@ function App() {
       }
     };
     checkAuth();
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
-    if (!authentication && window.location.pathname !== "/register") {
+    if (!isAuthenticated && window.location.pathname !== "/register") {
       navigate("/login");
-    }
-    if (!authentication) {
-      logout();
     }
 
     try {
