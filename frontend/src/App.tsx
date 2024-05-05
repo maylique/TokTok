@@ -12,6 +12,7 @@ import NewPost from "./pages/NewPost";
 import { ThemeProvider } from "./provider/ThemeProvider";
 import SinglePost from "./pages/SinglePost";
 import TabBar from "./components/TabBar";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   const { user, loadCurrentUserData, logout } = useStore() as Store;
@@ -21,8 +22,16 @@ function App() {
     if (!user && window.location.pathname !== "/register") {
       navigate("/login");
     }
+    if (!user && localStorage.getItem("token")) {
+      logout();
+    }
 
-    loadCurrentUserData();
+    try {
+      loadCurrentUserData();
+    } catch (error) {
+      logout();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, loadCurrentUserData]);
 
@@ -40,6 +49,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/newpost" element={<NewPost />} />
           <Route path="*" element={<button onClick={logout}>404</button>} />
+          <Route path="profile/:profileId" element={<UserProfile />} />
         </Routes>
       </ThemeProvider>
       {window.location.pathname.startsWith("/post") ||

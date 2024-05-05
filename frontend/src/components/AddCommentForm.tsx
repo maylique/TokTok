@@ -3,15 +3,16 @@ import { Button } from "./ui/button";
 import { useRef } from "react";
 import { api } from "@/lib/api";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Store, useStore } from "@/zustand";
+import { useStore } from "@/zustand";
 
 const AddCommentForm = ({ postId, userId, refresh }) => {
-  const { user } = useStore() as Store;
-  const commentRef = useRef();
+  const { user } = useStore()
+  const commentRef = useRef<HTMLInputElement>(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const content = await api
+      if (commentRef && commentRef.current) {
+      await api
         .post(`posts/${postId}/${userId}`, {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -20,6 +21,8 @@ const AddCommentForm = ({ postId, userId, refresh }) => {
         .json();
       refresh();
       commentRef.current.value = "";
+      }
+
     } catch (error) {
       console.error(error);
     }

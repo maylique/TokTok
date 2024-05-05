@@ -14,7 +14,9 @@ export const getPost = async (req, res) => {
 };
 
 export const getPostsByUserId = async (req, res) => {
-  const post = await Post.find({ authorId: req.params.userId });
+  const post = await Post.find({ authorId: req.params.userId }).sort({
+    date: -1,
+  });
   res.json(post);
 };
 

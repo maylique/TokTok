@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -134,14 +135,14 @@ const EditProfile = () => {
                     />
                     <AvatarFallback>{user!.username}</AvatarFallback>
                   </Avatar>
-              <div className="relative">
+                  <div className="relative">
                     <div className="z-10 absolute bottom-[0.5rem] left-[72%] w-full">
                       <img
                         src="../img/profile-edit.svg"
                         onClick={handleClick}
                       />
                     </div>
-              </div>
+                  </div>
                   <FormControl>
                     <Input
                       type="file"
@@ -161,6 +162,7 @@ const EditProfile = () => {
               name="fullname"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription>Full name</FormDescription>
                   <FormControl>
                     <Input
                       {...field}
@@ -176,6 +178,7 @@ const EditProfile = () => {
               name="username"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription>Username</FormDescription>
                   <FormControl>
                     <Input
                       {...field}
@@ -191,6 +194,7 @@ const EditProfile = () => {
               name="job"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription>Job</FormDescription>
                   <FormControl>
                     <Input
                       {...field}
@@ -206,6 +210,7 @@ const EditProfile = () => {
               name="bio"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription>Bio</FormDescription>
                   <FormControl>
                     <Input
                       {...field}
@@ -221,6 +226,7 @@ const EditProfile = () => {
               name="birthdate"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription>Birthdate</FormDescription>
                   <FormControl>
                     <Input
                       {...field}
@@ -237,6 +243,8 @@ const EditProfile = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription>E-Mail</FormDescription>
+
                   <FormControl>
                     <Input
                       {...field}
@@ -252,6 +260,7 @@ const EditProfile = () => {
               name="phone"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription>Phone Number</FormDescription>
                   <FormControl>
                     <Input
                       {...field}
@@ -268,6 +277,7 @@ const EditProfile = () => {
               name="gender"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription>Gender</FormDescription>
                   <Select onValueChange={field.onChange}>
                     <FormControl className="min-w-[300px] bg-black-50 border-none dark:bg-black-500">
                       <SelectTrigger>
@@ -294,11 +304,12 @@ const EditProfile = () => {
               name="website"
               render={({ field }) => (
                 <FormItem>
+                  <FormDescription>Homepage</FormDescription>
                   <FormControl>
                     <Input
                       {...field}
                       type="url"
-                      className="min-w-[300px] bg-black-50 border-none dark:bg-black-500"
+                      className="min-w-[300px] bg-black-50 border-nonedark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />
