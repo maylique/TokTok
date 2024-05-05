@@ -1,25 +1,20 @@
 import AddCommentForm from "@/components/AddCommentForm";
 import Comments from "@/components/Comments";
-import FeedCard from "@/components/FeedCard";
 import FeedHeader from "@/components/FeedHeader";
 import { addLike, getSinglePost, getUserData } from "@/lib/api";
-import { Store, useStore } from "@/zustand";
+import { Post, User, useStore } from "@/zustand";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 const SinglePost = () => {
   const { postId } = useParams<{ postId: string }>();
-
   const navigate = useNavigate();
-
-  const [singlePost, setSinglePost] = useState();
-  const [authorDetails, setAuthorDetails] = useState([]);
-  const [userData, setUserData] = useState();
-  const { user } = useStore() as Store;
-  const [isLiked, setIsLiked] = useState(singlePost?.likes.includes(user?._id));
-  const [isClicked, setIsClicked] = useState(false);
-
+  const [singlePost, setSinglePost] = useState<Post | undefined>();
+  const [authorDetails, setAuthorDetails] = useState<User[]>([]);
+  const { user } = useStore();
+  const [isLiked, setIsLiked] = useState(
+    singlePost && user ? singlePost.likes.includes(user._id) : false
+  );
   const getAuthorDetails = async (id) => {
     await getUserData(id).then((json) => {
       setAuthorDetails(json);
@@ -36,7 +31,7 @@ const SinglePost = () => {
   const getTimeSince = (dateString) => {
     const postDate = new Date(dateString);
     const now = new Date();
-    const difference = now - postDate; // Differenz in Millisekunden
+    const difference = now.getTime() - postDate.getTime();
     const hours = Math.floor(difference / 3600000); // Umrechnung in Stunden
 
     if (hours > 24 && hours < 48) {
@@ -48,20 +43,21 @@ const SinglePost = () => {
     }
     return `${hours} hours ago`;
   };
+
   const [animateLike, setAnimateLike] = useState(false);
   const handleLike = async () => {
-    setIsClicked(!isClicked);
-    if (!singlePost?.likes.includes(user?._id)) {
+    if (!singlePost.likes.includes(user?._id)) {
       setAnimateLike(true);
       setTimeout(() => setAnimateLike(false), 1000); // Annahme: Animation dauert 1000ms
     }
     setIsLiked(!isLiked);
     await addLike(singlePost!._id, user._id);
-    refreshSinglePost(postId);
+    refreshSinglePost();
   };
 
   useEffect(() => {
     refreshSinglePost();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

@@ -12,19 +12,21 @@ const FeedHeader = ({ profile }) => {
   return (
     <>
       <div className="flex mb-3 justify-between">
-        <div className="flex">
-          <Avatar className="m-1">
-            <AvatarImage
-              className=" object-cover"
-              src={profile.profilePictureUrl}
-            />
-            <AvatarFallback>{profile.username}</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <h5>{profile.username}</h5>
-            <p className="text-gray-500">{profile?.job}</p>
+        <a href={`profile/${profile?._id}`}>
+          <div className="flex">
+            <Avatar className="m-1">
+              <AvatarImage
+                className=" object-cover"
+                src={profile?.profilePictureUrl}
+              />
+              <AvatarFallback>{profile?.username}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <h5>{profile?.username}</h5>
+              <p className="text-gray-500">{profile?.job}</p>
+            </div>
           </div>
-        </div>
+        </a>
         <DropdownMenu>
           <DropdownMenuTrigger>
             <img src="/img/more.svg" alt="" />

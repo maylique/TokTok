@@ -8,31 +8,29 @@ const SearchFunc = () => {
 
   const { users, user, loadCurrentUserData } = useStore() as Store;
 
-  const filterUsers = () => {
-    if (!searchItem.trim()) {
-      const excludeOwnId = users!.filter(
-        (ownUser) => ownUser._id !== user!._id
-      );
-      setFilteredUsers(excludeOwnId);
-    } else {
-      const filtered = users!.filter((userList) =>
-        userList.username.toLowerCase().includes(searchItem.toLowerCase())
-      );
-      const excludeOwnId = filtered!.filter(
-        (ownUser) => ownUser._id !== user!._id
-      );
-      setFilteredUsers(excludeOwnId);
-    }
-  };
-
   const handleSearchInput = (e) => {
     setSearchItem(e.target.value);
   };
 
   useEffect(() => {
+    const filterUsers = () => {
+      if (!searchItem.trim()) {
+        const excludeOwnId = users!.filter(
+          (ownUser) => ownUser._id !== user!._id
+        );
+        setFilteredUsers(excludeOwnId);
+      } else {
+        const filtered = users!.filter((userList) =>
+          userList.username.toLowerCase().includes(searchItem.toLowerCase())
+        );
+        const excludeOwnId = filtered!.filter(
+          (ownUser) => ownUser._id !== user!._id
+        );
+        setFilteredUsers(excludeOwnId);
+      }
+    };
     filterUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchItem, users]);
+  }, [searchItem, users, user]);
 
   const handleFollow = async (userId, isFollowing) => {
     try {
@@ -78,22 +76,24 @@ const SearchFunc = () => {
                 key={filteredUser._id}
                 className="w-full justify-start items-center gap-3 inline-flex"
               >
-                <div className="grow shrink basis-0 h-[60px] justify-start items-center gap-5 flex">
-                  <div className="justify-center items-center flex">
-                    <img
-                      className="w-[60px] h-[60px] rounded-full"
-                      src={filteredUser?.profilePictureUrl}
-                    />
-                  </div>
-                  <div className="grow shrink basis-0 flex-col justify-start items-start gap-1 inline-flex">
-                    <div className="self-stretch text-neutral-800 text-lg font-bold font-['Urbanist'] leading-snug">
-                      {filteredUser?.username}
+                <a href={`../profile/${filteredUser._id}`} className="w-full justify-start items-center gap-3 inline-flex">
+                  <div className="grow shrink basis-0 h-[60px] justify-start items-center gap-5 flex">
+                    <div className="justify-center items-center flex">
+                      <img
+                        className="w-[60px] h-[60px] rounded-full"
+                        src={filteredUser?.profilePictureUrl}
+                      />
                     </div>
-                    <div className="self-stretch text-zinc-600 text-sm font-medium font-['Urbanist'] leading-tight tracking-tight">
-                      {filteredUser?.job}
+                    <div className="grow shrink basis-0 flex-col justify-start items-start gap-1 inline-flex">
+                      <div className="self-stretch text-neutral-800 text-lg font-bold font-['Urbanist'] leading-snug">
+                        {filteredUser?.username}
+                      </div>
+                      <div className="self-stretch text-zinc-600 text-sm font-medium font-['Urbanist'] leading-tight tracking-tight">
+                        {filteredUser?.job}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </a>
                 <div
                   className={`px-4 py-1.5 rounded-[100px] justify-center items-center gap-1 flex ${
                     isFollowing

@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { api } from "@/lib/api";
 import { persist } from "zustand/middleware";
-
 export interface User {
   _id: string;
   profilePictureUrl: string;
@@ -44,8 +43,9 @@ export interface Post {
   authorId: User;
   imageUrl: string;
   likes: string[];
-  comments: string[];
+  comments: Comment[];
   caption: string;
+  date: string;
 }
 
 export interface Comment {
@@ -53,6 +53,8 @@ export interface Comment {
   authorId: string;
   postId: string;
   content: string;
+  likes: string[];
+  date: string;
 }
 
 export interface Store {
@@ -64,6 +66,7 @@ export interface Store {
   getUserById: (userId: string) => Promise<User>;
   loadCurrentUserData: () => void;
   logout: () => void;
+  getPostsByUserId: (userId: string) => Promise<Post[]>;
 }
 
 export const useStore = create<Store>()(
@@ -105,7 +108,7 @@ export const useStore = create<Store>()(
             users: allUsers,
           });
         } catch (error) {
-          console.error(error);
+          set({ user: null });
         }
       },
       getUserById: async (userId: string) => {
@@ -113,6 +116,12 @@ export const useStore = create<Store>()(
           .get(`users/${userId}`, { credentials: "include" })
           .json()) as User;
         return user[0];
+      },
+      getPostsByUserId: async (userId: string) => {
+        const userPosts = (await api
+          .get(`posts/user/${userId}`, { credentials: "include" })
+          .json()) as Post[];
+        return userPosts;
       },
       logout: async () => {
         await api.post("auth/logout", { credentials: "include" });

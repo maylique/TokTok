@@ -1,15 +1,15 @@
 import { getComments, getUserData } from "@/lib/api";
 import { useEffect, useState } from "react";
 import FeedHeader from "./FeedHeader";
-import { useStore } from "@/zustand";
+import { Comment, User, useStore } from "@/zustand";
 
 const Comments = ({ commentData }) => {
-  const [comments, setComments] = useState();
-  const [author, setAuthor] = useState();
-  const { user } = useStore() as Fulldata & UserData;
+  const [comments, setComments] = useState<Comment>();
+  const [author, setAuthor] = useState<User[]>();
+  const { user } = useStore();
   const refreshComments = async () => {
     await getComments(commentData).then((json) => {
-      setComments(json);
+      setComments(json as Comment);
     });
   };
 
@@ -21,6 +21,7 @@ const Comments = ({ commentData }) => {
 
   useEffect(() => {
     refreshComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const Comments = ({ commentData }) => {
   const getTimeSince = (dateString) => {
     const postDate = new Date(dateString);
     const now = new Date();
-    const difference = now - postDate; // Differenz in Millisekunden
+    const difference = now.getDate() - postDate.getDate(); // Differenz in Millisekunden
     const hours = Math.floor(difference / 3600000); // Umrechnung in Stunden
 
     if (hours > 24 && hours < 48) {
@@ -48,13 +49,10 @@ const Comments = ({ commentData }) => {
   };
   const [animateLike, setAnimateLike] = useState(false);
   const handleLike = async () => {
-    setIsClicked(!isClicked);
-    if (!comments?.likes.includes(user?._id)) {
+    if (comments?.likes.includes(user?._id)) {
       setAnimateLike(true);
       setTimeout(() => setAnimateLike(false), 1000); // Annahme: Animation dauert 1000ms
     }
-    setIsLiked(!isLiked);
-    await addLike(comments._id, user._id);
     refreshComments();
   };
   return (
