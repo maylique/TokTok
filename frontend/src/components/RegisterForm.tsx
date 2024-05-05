@@ -13,6 +13,7 @@ const RegisterForm = () => {
     try {
       const response = await api.post("users/register", { body: inputData });
       const json = await response.json();
+      console.log(json);
       navigate("/login");
     } catch (err) {
       console.error(err);
