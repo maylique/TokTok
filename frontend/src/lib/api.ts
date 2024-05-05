@@ -31,6 +31,3 @@ export const deleteMainComment = (postId, commentId, userId) =>
       credentials: "include",
     })
     .json();
-
-export const checkAuth = () =>
-  api.get("auth/checkauth", { credentials: "include" }).json();
