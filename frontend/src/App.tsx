@@ -47,7 +47,7 @@ function App() {
     } catch (error) {
       logout();
     }
-    console.log("jojojo");
+    console.log("jojo");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
