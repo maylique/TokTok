@@ -18,7 +18,6 @@ export const registerUser = async (req, res) => {
     if (user) {
       res.status(401).json({ message: "User already exists" });
     } else {
-      const verificationCode = crypto.randomInt(100000, 999999);
       const newUser = await User.create({
         username,
         passwordHash,
