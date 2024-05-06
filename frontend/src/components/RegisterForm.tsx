@@ -20,8 +20,8 @@ const RegisterForm = () => {
     }
   };
   return (
-    <div className="h-[882px] px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex">
-      <div className="text-neutral-800 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
+    <div className="h-[882px] px-6 pt-6 pb-12 flex-col justify-between items-center flex">
+      <div className="text-neutral-800 text-[40px] font-bold font-['Urbanist'] leading-[44px] text-center">
         Create your
         <br />
         Account
@@ -30,7 +30,7 @@ const RegisterForm = () => {
         <img src="../img/Type=Logo Default, Component=Logo.svg" alt="" />
       </div>
       <form
-        className="self-stretch h-[215px] flex-col justify-start items-start gap-8 flex"
+        className="self-stretch h-[215px] flex-col gap-8 flex items-center"
         onSubmit={sendFormData}
       >
         <div className="h-[215px] flex-col justify-center items-center gap-5 flex">

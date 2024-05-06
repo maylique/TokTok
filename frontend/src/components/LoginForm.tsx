@@ -28,8 +28,8 @@ const LoginForm = () => {
     }
   };
   return (
-    <div className="h-[882px] px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex overflow-y-scroll">
-      <div className=" text-black-800 dark:text-black-50 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
+    <div className="h-[882px] px-6 pt-6 pb-12 flex-col justify-between items-center overflow-y-scroll flex">
+      <div className=" text-black-800 dark:text-black-50 text-[40px] font-bold font-['Urbanist'] leading-[44px] text-center">
         Login to your
         <br />
         Account
@@ -39,7 +39,7 @@ const LoginForm = () => {
         <img src="../img/Type=Logo Default, Component=Logo.svg" alt="" />
       </div>
       <form
-        className="self-stretch h-[215px] flex-col justify-start items-start gap-8 flex"
+        className="self-stretch h-[215px] flex-col gap-8 flex items-center"
         onSubmit={sendFormData}
       >
         <div className="h-[215px] flex-col justify-center items-center gap-5 flex">
