@@ -23,6 +23,7 @@ export const userLogin = async (req, res) => {
     { username: user.username, email, userId: user._id},
     process.env.JWT_SECRET
   );
+
   res.cookie("token", token,{
     httpOnly: true,
     sameSite:"none",
