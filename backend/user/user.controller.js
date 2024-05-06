@@ -22,7 +22,6 @@ export const registerUser = async (req, res) => {
         username,
         passwordHash,
         email,
-        verificationCode,
       });
       res.status(201).json(newUser);
 
