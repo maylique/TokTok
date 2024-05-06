@@ -20,13 +20,13 @@ const RegisterForm = () => {
     }
   };
   return (
-    <div className="w-[428px] h-[882px] px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex">
-      <div className="w-[380px] text-neutral-800 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
+    <div className="h-[882px] px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex">
+      <div className="text-neutral-800 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
         Create your
         <br />
         Account
       </div>
-      <div className="w-[140px] h-[140px] relative">
+      <div className="h-[140px] relative">
         <img src="../img/Type=Logo Default, Component=Logo.svg" alt="" />
       </div>
       <form
@@ -34,25 +34,25 @@ const RegisterForm = () => {
         onSubmit={sendFormData}
       >
         <div className="h-[215px] flex-col justify-center items-center gap-5 flex">
-          <div className="w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex">
+          <div className="h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex">
             <input
-              className="dark:text-black w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
+              className="dark:text-black h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
               type="text"
               name="username"
               placeholder="username"
             />
           </div>
-          <div className="dark:text-black w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex">
+          <div className="dark:text-black h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex">
             <input
-              className="w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
+              className="h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
               type="email"
               name="email"
               placeholder="email"
             />
           </div>
-          <div className="dark:text-black w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex">
+          <div className="dark:text-black h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex">
             <input
-              className="w-[380px] h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
+              className="h-[60px] px-5 bg-black-50 rounded-xl justify-start items-center gap-3 inline-flex outline-none"
               type="password"
               name="password"
               placeholder="password"
@@ -64,7 +64,7 @@ const RegisterForm = () => {
 							<img />
 						</div> */}
           </div>
-          <div className="w-[380px] h-[55px] px-4 py-[18px] bg-primary-500 rounded-[100px] justify-center items-center gap-2.5 inline-flex">
+          <div className="w-full h-[55px] px-4 py-[18px] bg-primary-500 rounded-[100px] justify-center items-center gap-2.5 inline-flex">
             <button
               type="submit"
               className="grow shrink basis-0 text-center text-primary-50 text-base font-bold font-['Urbanist'] leading-snug tracking-tight"
