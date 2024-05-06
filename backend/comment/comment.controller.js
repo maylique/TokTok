@@ -73,3 +73,29 @@ export const addReply = async (req, res) => {
     res.status(500).json({ message: "Failed to add Reply" });
   }
 };
+
+export const deleteReply = async (req, res) => {
+  try {
+    const { commentId, userId } = req.params;
+
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    if (comment.authorId.toString() !== userId) {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized to delete this comment" });
+    }
+
+    const deletedComment = await Comment.findByIdAndDelete(commentId);
+    if (!deletedComment) {
+      return res.status(401).json({ message: "Comment not deleted" });
+    }
+
+    return res.status(200).json({ message: "Comment successfully deleted" });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

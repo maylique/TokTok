@@ -1,4 +1,9 @@
-import { addCommentLike, getComments, getUserData } from "@/lib/api";
+import {
+  addCommentLike,
+  deleteReply,
+  getComments,
+  getUserData,
+} from "@/lib/api";
 import { useEffect, useState } from "react";
 import FeedHeader from "./FeedHeader";
 import { Comment, User, useStore } from "@/zustand";
@@ -49,6 +54,11 @@ const Reply = ({ replyData, refresh }) => {
     setReplyOpen(!replyOpen);
   };
 
+  const deleteComment = async () => {
+    await deleteReply(comments._id, user!._id);
+    refresh();
+  };
+
   // TESTAREA
 
   const renderReplies = (comments) => {
@@ -64,45 +74,57 @@ const Reply = ({ replyData, refresh }) => {
 
   return (
     <>
-      {author ? <FeedHeader profile={author[0]} /> : null}
-      <p className="ml-8 mr-8">{comments?.content}</p>
-      <section>
-        <div className="m-3 flex items-center">
-          <div className="flex m-3">
-            <button onClick={handleLike}>
-              <img
-                className={animateLike ? "jello-horizontal" : ""}
-                src={
-                  comments?.likes.includes(user!._id)
-                    ? "/img/liked.svg"
-                    : "/img/favorites.svg"
-                }
-                alt=""
-              />
-            </button>
-            <p className="m-2 min-w-3">{comments?.likes.length}</p>
-          </div>
-          <div className="flex m-3">
-            <button>
-              <p onClick={openReply} className=" text-black-400">
-                Reply
+      {comments && !isNaN(new Date(comments.date).getTime()) ? (
+        <>
+          {author ? (
+            <FeedHeader
+              where={"Reply"}
+              deletePost={deleteComment}
+              profile={author[0]}
+            />
+          ) : null}
+          <p className="ml-8 mr-8">{comments.content}</p>
+          <section>
+            <div className="m-3 flex items-center">
+              <div className="flex m-3">
+                <button onClick={handleLike}>
+                  <img
+                    className={animateLike ? "jello-horizontal" : ""}
+                    src={
+                      comments.likes.includes(user._id)
+                        ? "/img/liked.svg"
+                        : "/img/favorites.svg"
+                    }
+                    alt=""
+                  />
+                </button>
+                <p className="m-2 min-w-3">{comments.likes.length}</p>
+              </div>
+              <div className="flex m-3">
+                <button>
+                  <p onClick={openReply} className="text-black-400">
+                    Reply
+                  </p>
+                </button>
+              </div>
+              <p className="text-black-300 m-2">
+                {getTimeSince(comments.date)}
               </p>
-            </button>
-          </div>
-          <p className="text-black-300 m-2">{getTimeSince(comments?.date)}</p>
-        </div>
-        {comments?.comments && comments?.comments.length > 0
-          ? renderReplies(comments.comments)
-          : null}
-        {replyOpen ? (
-          <AddReply
-            postId={comments?._id}
-            userId={user?._id}
-            setReply={setReplyOpen}
-            refresh={refreshComments}
-          />
-        ) : null}
-      </section>
+            </div>
+            {comments.comments && comments.comments.length > 0
+              ? renderReplies(comments.comments)
+              : null}
+            {replyOpen ? (
+              <AddReply
+                postId={comments._id}
+                userId={user._id}
+                setReply={setReplyOpen}
+                refresh={refreshComments}
+              />
+            ) : null}
+          </section>
+        </>
+      ) : null}
     </>
   );
 };

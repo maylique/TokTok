@@ -309,7 +309,7 @@ const EditProfile = () => {
                     <Input
                       {...field}
                       type="url"
-                      className="min-w-[300px] bg-black-50 border-nonedark:bg-black-500"
+                      className="min-w-[300px] bg-black-50 border-nonedark:bg-black-500 dark:bg-black-500"
                     />
                   </FormControl>
                   <FormMessage />

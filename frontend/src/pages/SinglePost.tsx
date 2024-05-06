@@ -50,7 +50,7 @@ const SinglePost = () => {
         <div className="flex m-2">
           <img
             onClick={() => {
-              navigate("/feed");
+              navigate(-1);
             }}
             src="/img/arrow.svg"
             alt=""
@@ -59,9 +59,9 @@ const SinglePost = () => {
         </div>
         <img src="" alt="" />
       </header>
-    {singlePost && authorDetails && (
-      <FeedHeader profile={authorDetails[0]} />
-    )}
+      {singlePost && authorDetails && (
+        <FeedHeader where={"Post"} profile={authorDetails[0]} />
+      )}
       <main className="m-2">
         <p className="m-3">{singlePost?.caption}</p>
         <p className="m-3 text-black-300 dark:text-black-50">

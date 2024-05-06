@@ -282,7 +282,7 @@ const NewPost = () => {
                 <span className="absolute min-w-[6px] min-h-[6px] rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center bottom-[55%] left-[95%] translate-x-2/4 -translate-y-2/4 bg-primary-500 text-white"></span>
               </div>
               <Autocomplete
-                className="w-full mx-5 h-12 bg-black-50 rounded-xl border-none pl-5"
+                className="w-full mx-5 h-12 bg-black-50 rounded-xl border-none pl-5 dark: text-black"
                 apiKey={import.meta.env.VITE_GOOGLE_API_KEY}
                 options={{
                   types: ["geocode", "establishment"],
