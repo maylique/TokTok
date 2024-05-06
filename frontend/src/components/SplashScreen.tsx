@@ -10,7 +10,7 @@ const SplashScreen = () => {
     if (hasSeenSplashScreen) {
       setShowSplashScreen(false);
     } else {
-      localStorage.setItem("splashScreenShown", true);
+      localStorage.setItem("splashScreenShown", "true");
     }
   }, []);
 

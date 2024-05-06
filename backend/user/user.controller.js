@@ -10,37 +10,32 @@ export const getUsers = async (req, res) => {
 };
 
 export const registerUser = async (req, res) => {
-	try {
-		const { username, email, password } = req.body;
-		if (!username || !email || !password) {
-			res.status(400).json({ message: "Please provide all fields" });
-		} else {
-			const user = await User.findOne({ email });
-			const passwordHash = await bcrypt.hash(password, 10);
-			if (user) {
-				res.status(401).json({ message: "User already exists" });
-			} else {
-				const verificationCode = crypto.randomInt(100000, 999999);
-				const newUser = await User.create({
-					username,
-					passwordHash,
-					email,
-					verificationCode,
-				});
-        
-				const url = `${process.env.BACKEND}/users/${user._id}/verify/${verificationCode}`;
-				await sendMail(user.email, "Verify Email", url);
-        
-				res.json(newUser);
-				res
-        .status(201)
-        .send({ message: "An Email was sent to your account, please verify" });
-			}
-		}
-	} catch (error) {
-		console.log(error);
-		res.status(500).send({ message: "Internal Server Error" });
-	}
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    res.status(400).json({ message: "Please provide all fields" });
+  } else {
+    const user = await User.findOne({ email });
+    const passwordHash = await bcrypt.hash(password, 10);
+    if (user) {
+      res.status(401).json({ message: "User already exists" });
+    } else {
+      const newUser = await User.create({
+        username,
+        passwordHash,
+        email,
+      });
+      res.status(201).json(newUser);
+
+      // const emailResult = await mail.sendMail({
+      //   from: '"Test" <test@toktok.de>',
+
+      //   to: email,
+      //   subject: "Registration erfolgreich!",
+      //   text: `Danke für deine Registrierung, ${username}. Klicke hier um zu bestaetigen. Dies ist dein Verification Code: ${verificationCode}`,
+      //   html: `<p>Danke für deine Registrierung, <b>${username}</b>.</p> <p>Klicke hier um zu bestaetigen. Dies ist dein Verification Code: ${verificationCode}</p>`,
+      // });
+    }
+  }
 };
 
 // export const verifyUser = async (req, res) => {

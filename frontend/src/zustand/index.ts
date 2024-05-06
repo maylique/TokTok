@@ -43,8 +43,9 @@ export interface Post {
   authorId: User;
   imageUrl: string;
   likes: string[];
-  comments: string[];
+  comments: Comment[];
   caption: string;
+  date: string;
 }
 
 export interface Comment {
@@ -52,6 +53,10 @@ export interface Comment {
   authorId: string;
   postId: string;
   content: string;
+  likes: string[];
+  date: string;
+  comments: Comment[];
+  value: string;
 }
 
 export interface Store {
@@ -105,7 +110,7 @@ export const useStore = create<Store>()(
             users: allUsers,
           });
         } catch (error) {
-          console.error(error);
+          set({ user: null });
         }
       },
       getUserById: async (userId: string) => {

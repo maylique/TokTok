@@ -22,8 +22,16 @@ function App() {
     if (!user && window.location.pathname !== "/register") {
       navigate("/login");
     }
+    if (!user && localStorage.getItem("token")) {
+      logout();
+    }
 
-    loadCurrentUserData();
+    try {
+      loadCurrentUserData();
+    } catch (error) {
+      logout();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, loadCurrentUserData]);
 
@@ -44,7 +52,8 @@ function App() {
           <Route path="profile/:profileId" element={<UserProfile />} />
         </Routes>
       </ThemeProvider>
-      {window.location.pathname === "/login" ||
+      {window.location.pathname.startsWith("/post") ||
+      window.location.pathname === "/login" ||
       window.location.pathname === "/register" ? null : (
         <TabBar />
       )}

@@ -2,21 +2,20 @@ import AddCommentForm from "@/components/AddCommentForm";
 import Comments from "@/components/Comments";
 import FeedHeader from "@/components/FeedHeader";
 import { addLike, getSinglePost, getUserData } from "@/lib/api";
-import { Store, useStore } from "@/zustand";
+import { Post, User, useStore } from "@/zustand";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getTimeSince } from "@/lib/functions";
 
 const SinglePost = () => {
   const { postId } = useParams<{ postId: string }>();
-
   const navigate = useNavigate();
-
-  const [singlePost, setSinglePost] = useState();
-  const [authorDetails, setAuthorDetails] = useState([]);
-  const { user } = useStore() as Store;
-  const [isLiked, setIsLiked] = useState(singlePost?.likes.includes(user?._id));
-  const [isClicked, setIsClicked] = useState(false);
-
+  const [singlePost, setSinglePost] = useState<Post | undefined>();
+  const [authorDetails, setAuthorDetails] = useState<User>();
+  const { user } = useStore();
+  const [isLiked, setIsLiked] = useState(
+    singlePost && user ? singlePost.likes.includes(user._id) : false
+  );
   const getAuthorDetails = async (id) => {
     await getUserData(id).then((json) => {
       setAuthorDetails(json);
@@ -27,39 +26,23 @@ const SinglePost = () => {
     await getSinglePost(postId).then((json) => {
       setSinglePost(json);
       getAuthorDetails(json.authorId);
-      console.log(authorDetails[0]);
     });
   };
 
-  const getTimeSince = (dateString) => {
-    const postDate = new Date(dateString);
-    const now = new Date();
-    const difference = now - postDate; // Differenz in Millisekunden
-    const hours = Math.floor(difference / 3600000); // Umrechnung in Stunden
-
-    if (hours > 24 && hours < 48) {
-      const days = Math.floor(hours / 24);
-      return `${days} day ago`;
-    } else if (hours > 48) {
-      const days = Math.floor(hours / 24);
-      return `${days} days ago`;
-    }
-    return `${hours} hours ago`;
-  };
   const [animateLike, setAnimateLike] = useState(false);
   const handleLike = async () => {
-    setIsClicked(!isClicked);
-    if (!singlePost?.likes.includes(user?._id)) {
+    if (!singlePost.likes.includes(user?._id)) {
       setAnimateLike(true);
       setTimeout(() => setAnimateLike(false), 1000); // Annahme: Animation dauert 1000ms
     }
     setIsLiked(!isLiked);
     await addLike(singlePost!._id, user._id);
-    refreshSinglePost(postId);
+    refreshSinglePost();
   };
 
   useEffect(() => {
     refreshSinglePost();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
@@ -76,14 +59,18 @@ const SinglePost = () => {
         </div>
         <img src="" alt="" />
       </header>
+    {singlePost && authorDetails && (
       <FeedHeader profile={authorDetails[0]} />
+    )}
       <main className="m-2">
         <p className="m-3">{singlePost?.caption}</p>
-        <p className="m-3 text-black-300">{getTimeSince(singlePost?.date)}</p>
+        <p className="m-3 text-black-300 dark:text-black-50">
+          {getTimeSince(singlePost?.date)}
+        </p>
         {/* <FeedCard post={singlePost} refresh={refreshSinglePost} /> */}
         <section>
           <div className="m-3 flex">
-            <div className="flex m-3">
+            <div className="flex m-3 min-w-6">
               <button onClick={handleLike}>
                 <img
                   className={animateLike ? "jello-horizontal" : ""}
@@ -114,8 +101,12 @@ const SinglePost = () => {
       <section className=" border-black-400 border-t pt-3 m-3">
         {singlePost?.comments.map((comment) => {
           return (
-            <div key={comment._id}>
-              <Comments commentData={comment} />
+            <div className=" last-of-type:mb-20" key={comment._id}>
+              <Comments
+                id={singlePost?._id}
+                commentData={comment}
+                refresh={refreshSinglePost}
+              />
             </div>
           );
         })}

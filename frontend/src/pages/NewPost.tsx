@@ -298,9 +298,7 @@ const NewPost = () => {
                 placeholder="Add location"
                 value={location.city}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  if (e.target.value) {
-                    setLocation({ ...location, city: e.target.value });
-                  }
+                  setLocation({ ...location, city: e.target.value });
                 }}
               />
             </Form>
