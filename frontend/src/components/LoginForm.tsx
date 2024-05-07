@@ -2,6 +2,7 @@ import { api } from "@/lib/api";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Store, useStore } from "@/zustand";
+import "./animations.css";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -29,15 +30,15 @@ const LoginForm = () => {
   };
   return (
     <section className="w-full flex justify-center">
-      <div className="h-[882px] px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex overflow-y-scroll">
+      <div className="h-screen px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex overflow-y-scroll">
         <div className=" text-black-800 dark:text-black-50 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
-          Login to your
-          <br />
-          Account
+          <p className="tracking-in-expand">Login</p>
         </div>
-        <div className="h-[140px] relative">
+        <div className="relative ">
           {/* <div className="w-[140px] h-[140px] left-0 top-0 absolute bg-gradient-to-l from-rose-500 to-red-300 rounded-[48px]"> */}
-          <img src="../img/Type=Logo Default, Component=Logo.svg" alt="" />
+          <div className="rainbow w-40 h-40">
+            <img className="w-full" src="/img/logo.svg" alt="" />
+          </div>
         </div>
         <form
           className="self-stretch h-[215px] flex-col justify-start items-start gap-8 flex"
@@ -75,12 +76,12 @@ const LoginForm = () => {
           </div>
         </form>
         <div className="self-stretch justify-center items-center gap-2 inline-flex">
-          <div className="text-right text-neutral-400 text-sm font-normal font-['Urbanist'] leading-tight tracking-tight">
+          <div className="text-right text-neutral-400 text-sm font-normal font-['Urbanist'] leading-tight tracking-tight tracking-in-expand-delay">
             Don't have an account?
           </div>
           <Link
             to="/register"
-            className="text-primary-500 text-sm font-semibold font-['Urbanist'] leading-tight tracking-tight"
+            className="text-primary-500 text-sm font-semibold font-['Urbanist'] leading-tight tracking-tight tracking-in-expand-delay"
           >
             Sign Up
           </Link>

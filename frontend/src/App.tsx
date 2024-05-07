@@ -15,6 +15,7 @@ import TabBar from "./components/TabBar";
 import UserProfile from "./pages/UserProfile";
 import FullscreenModal from "./components/SplashScreen";
 import "./components/animations.css";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   const { user, loadCurrentUserData, logout } = useStore() as Store;
@@ -41,11 +42,11 @@ function App() {
 
   useEffect(() => {
     const lastVisit = localStorage.getItem("lastVisit");
-    const today = new Date().toDateString();
+    const currentHour = new Date().getHours().toString();
 
-    if (lastVisit !== today) {
+    if (lastVisit !== currentHour) {
       setSawSplashScreen(true);
-      localStorage.setItem("lastVisit", today);
+      localStorage.setItem("lastVisit", currentHour);
     }
   }, []);
 
@@ -80,7 +81,7 @@ function App() {
           <Route path="/edit-profile/:userId" element={<EditProfile />} />
           <Route path="/search" element={<Search />} />
           <Route path="/newpost" element={<NewPost />} />
-          <Route path="*" element={<button onClick={logout}>404</button>} />
+          <Route path="*" element={<ErrorPage />} />
           <Route path="profile/:profileId" element={<UserProfile />} />
         </Routes>
       </ThemeProvider>
