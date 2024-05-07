@@ -11,11 +11,20 @@ import { Comment, User, useStore } from "@/zustand";
 import { getTimeSince } from "@/lib/functions";
 import AddReply from "./AddReply";
 import Reply from "./Reply";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Comments = ({ id, commentData, refresh }) => {
   const [comments, setComments] = useState<Comment>();
   const [author, setAuthor] = useState<User>();
   const { user } = useStore();
+  const [showSkeleton, setShowSkeleton] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSkeleton(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const refreshComments = async () => {
     await getComments(commentData).then((json) => {
@@ -73,65 +82,72 @@ const Comments = ({ id, commentData, refresh }) => {
       </div>
     ));
   };
-
   return (
     <>
-      {author ? (
-        <FeedHeader
-          key={author[0]._id}
-          where={"Comment"}
-          deletePost={deleteComment}
-          profile={author[0]}
-        />
-      ) : null}
-      <p className="ml-8 mr-8">{comments?.content}</p>
-      <section>
-        <div className="m-3 flex items-center">
-          <div className="flex m-3">
-            <button onClick={handleLike}>
-              <img
-                className={animateLike ? "jello-horizontal" : ""}
-                src={
-                  comments?.likes.includes(user!._id)
-                    ? "/img/liked.svg"
-                    : "/img/favorites.svg"
-                }
-                alt=""
-              />
-            </button>
-            <p className="m-2 min-w-3">{comments?.likes.length}</p>
+      {showSkeleton ? (
+        <div>
+          <div className="flex items-center space-x-4">
+            <Skeleton className="h-12 w-12 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[200px]" />
+            </div>
+            <div className=" h-20"></div>
           </div>
-          <div className="flex m-3">
-            <button>
-              <p onClick={openReply} className=" text-black-400">
-                Reply
-              </p>
-            </button>
-          </div>
-          <p className="text-black-300 m-2">{getTimeSince(comments?.date)}</p>
+          <Skeleton className="h-12 w-full" />
         </div>
-        {/* {comments?.comments?.length >= 1
-          ? comments?.comments?.map((reply) => {
-              console.log(reply);
-              return (
-                <div className="ml-10" key={reply._id}>
-                  <Reply replyData={reply} refresh={refreshComments} />
-                </div>
-              );
-            })
-          : null} */}
-        {comments?.comments && comments?.comments.length > 0
-          ? renderReplies(comments.comments)
-          : null}
-        {replyOpen ? (
-          <AddReply
-            postId={comments?._id}
-            userId={user?._id}
-            refresh={refreshComments}
-            setReply={setReplyOpen}
-          />
-        ) : null}
-      </section>
+      ) : (
+        <>
+          {author ? (
+            <FeedHeader
+              key={author[0]._id}
+              where={"Comment"}
+              deletePost={deleteComment}
+              profile={author[0]}
+            />
+          ) : null}
+          <p className="ml-8 mr-8">{comments?.content}</p>
+          <section>
+            <div className="m-3 flex items-center">
+              <div className="flex m-3">
+                <button onClick={handleLike}>
+                  <img
+                    className={animateLike ? "jello-horizontal" : ""}
+                    src={
+                      comments?.likes.includes(user!._id)
+                        ? "/img/liked.svg"
+                        : "/img/favorites.svg"
+                    }
+                    alt=""
+                  />
+                </button>
+                <p className="m-2 min-w-3">{comments?.likes.length}</p>
+              </div>
+              <div className="flex m-3">
+                <button>
+                  <p onClick={openReply} className=" text-black-400">
+                    Reply
+                  </p>
+                </button>
+              </div>
+              <p className="text-black-300 m-2">
+                {getTimeSince(comments?.date)}
+              </p>
+            </div>
+            {comments?.comments && comments?.comments.length > 0
+              ? renderReplies(comments.comments)
+              : null}
+            {replyOpen ? (
+              <AddReply
+                postId={comments?._id}
+                userId={user?._id}
+                refresh={refreshComments}
+                setReply={setReplyOpen}
+              />
+            ) : null}
+          </section>
+        </>
+      )}
     </>
   );
 };
