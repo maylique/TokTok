@@ -73,7 +73,11 @@ const UserProfileHero = ({ profile }) => {
             </div>
             <Button
               type="submit"
-              className="bg-primary-500 hover:bg-primary-500 sm:bg-primary-100 rounded-3xl min-w-[300px] mb-6 "
+              className={`bg-primary-500 sm:bg-primary-100 rounded-3xl min-w-[300px] mb-6 ${
+                isFollowing
+                  ? "bg-white text-primary-500 border-2 border-primary-500"
+                  : "bg-primary-500 text-primary-50"
+              }`}
               onClick={() => handleFollow(profile._id, isFollowing)}
             >
               {isFollowing ? "Unfollow" : "Follow"}
