@@ -12,6 +12,7 @@ const FeedCard = ({ post }: { post: Post }) => {
   const [isLiked, setIsLiked] = useState(
     user ? post.likes.includes(user._id) : false
   );
+  const [animateLike, setAnimateLike] = useState(false);
   const [showSkeleton, setShowSkeleton] = useState(true);
   const navigate = useNavigate();
 
@@ -27,8 +28,6 @@ const FeedCard = ({ post }: { post: Post }) => {
   const navigateToPost = (id) => {
     navigate(`/post/${id}`);
   };
-
-  const [animateLike, setAnimateLike] = useState(false);
 
   const handleLike = async () => {
     setIsLiked(!isLiked);
