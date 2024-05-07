@@ -2,12 +2,13 @@ import { api } from "@/lib/api";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Store, useStore } from "@/zustand";
+import { useToast } from "@/components/ui/use-toast";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const { loadCurrentUserData } = useStore() as Store;
-  const [, setError] = useState(false);
+  const { loadCurrentUserData } = useStore();
 
   const sendFormData = async (event) => {
     event.preventDefault();
@@ -20,10 +21,11 @@ const LoginForm = () => {
         credentials: "include",
       });
       await loadCurrentUserData();
-
+      toast({ description: "Login successful", variant: "success" });
       navigate("/feed");
     } catch (error) {
-      setError(true);
+      const errorMessage = await error.response.json();
+      toast({ description: errorMessage.message, variant: "destructive" });
       console.log(error);
     }
   };
