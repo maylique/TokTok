@@ -63,12 +63,12 @@ const UserProfileHero = ({ profile }) => {
               </div>
               <Separator orientation="vertical" />
               <div>
-                <span className="font-bold">{profile.followers.length}</span>{" "}
-                Follower
+                <span className="font-bold">{followers.length}</span> Follower
               </div>
               <Separator orientation="vertical" />
               <div>
-                <span className="font-bold">{followers.length}</span> Following
+                <span className="font-bold">{profile.following.length}</span>{" "}
+                Following
               </div>
             </div>
             <Button
