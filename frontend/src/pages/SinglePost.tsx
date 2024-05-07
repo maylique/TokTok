@@ -6,6 +6,7 @@ import { Post, User, useStore } from "@/zustand";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getTimeSince } from "@/lib/functions";
+import GoBackTwice from "@/components/GoBackTwice";
 
 const SinglePost = () => {
   const { postId } = useParams<{ postId: string }>();
@@ -48,13 +49,14 @@ const SinglePost = () => {
     <>
       <header className="m-3 mt-10">
         <div className="flex m-2">
-          <img
+          {/* <img
             onClick={() => {
               navigate(-1);
             }}
             src="/img/arrow.svg"
             alt=""
-          />
+          /> */}
+          <GoBackTwice />
           <h3 className="ml-2 font-bold">Comments</h3>
         </div>
         <img src="" alt="" />
