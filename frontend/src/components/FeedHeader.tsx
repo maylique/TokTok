@@ -7,9 +7,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useStore } from "@/zustand";
+import { useNavigate } from "react-router-dom";
 
 const FeedHeader = ({ profile, deletePost, where }) => {
-  console.log(profile);
+  const navigate = useNavigate();
+  const { user } = useStore();
   return (
     <>
       <div className="flex m-3 justify-between">
@@ -38,15 +41,23 @@ const FeedHeader = ({ profile, deletePost, where }) => {
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
-                deletePost();
+                navigate(`/profile/${profile._id}`);
               }}
             >
-              Delete {where}
+              Profile
             </DropdownMenuItem>
+            {profile._id == user._id ? (
+              <DropdownMenuItem
+                style={{ color: "red" }}
+                onClick={() => {
+                  deletePost();
+                }}
+              >
+                Delete {where}
+              </DropdownMenuItem>
+            ) : null}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

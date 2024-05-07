@@ -3,7 +3,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Store, useStore } from "@/zustand";
 import EditProfile from "./pages/EditProfile";
 import SplashScreen from "./components/SplashScreen";
@@ -13,6 +13,8 @@ import { ThemeProvider } from "./provider/ThemeProvider";
 import SinglePost from "./pages/SinglePost";
 import TabBar from "./components/TabBar";
 import UserProfile from "./pages/UserProfile";
+import FullscreenModal from "./components/SplashScreen";
+import "./components/animations.css";
 
 function App() {
   const { user, loadCurrentUserData, logout } = useStore() as Store;
@@ -35,12 +37,42 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, loadCurrentUserData]);
 
+  const [sawSplashScreen, setSawSplashScreen] = useState(false);
+
+  useEffect(() => {
+    const lastVisit = localStorage.getItem("lastVisit");
+    const today = new Date().toDateString();
+
+    if (lastVisit !== today) {
+      setSawSplashScreen(true);
+      localStorage.setItem("lastVisit", today);
+    }
+  }, []);
+
   return (
     <>
-      <ThemeProvider defaultTheme="system">
+      <ThemeProvider defaultTheme="light">
+        <FullscreenModal
+          isOpen={sawSplashScreen}
+          onClose={() => setSawSplashScreen(false)}
+        >
+          <div className="w-40 h-40 rainbow slide-fwd-center">
+            <div
+              className="slide-fwd-center"
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img className="w-full" src="/img/logo.svg" alt="" />
+            </div>
+          </div>
+        </FullscreenModal>
         <Routes>
           <Route path="/post/:postId" element={<SinglePost />} />
-          <Route path="/" element={<SplashScreen />} />
           <Route path="/feed" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -52,7 +84,8 @@ function App() {
           <Route path="profile/:profileId" element={<UserProfile />} />
         </Routes>
       </ThemeProvider>
-      {window.location.pathname.startsWith("/post") ||
+      {window.location.pathname.startsWith("/edit-profile") ||
+      window.location.pathname.startsWith("/post") ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ? null : (
         <TabBar />

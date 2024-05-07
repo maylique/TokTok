@@ -51,7 +51,7 @@ const SearchFunc = () => {
         <div className="flex-col items-center gap-6 flex">
           <div className="flex bg-neutral-50 rounded-xl items-center justify-center gap-3 w-full">
             <input
-              className="px-5 h-10 bg-black-50 w-3/4 rounded-xl justify-center items-center gap-3 outline-none"
+              className="px-5 h-10 bg-black-50 w-3/4 rounded-xl justify-center items-center gap-3 outline-none dark: text-black"
               type="text"
               value={searchItem}
               onChange={handleSearchInput}
@@ -76,7 +76,10 @@ const SearchFunc = () => {
                 key={filteredUser._id}
                 className="w-full justify-start items-center gap-3 inline-flex"
               >
-                <a href={`../profile/${filteredUser._id}`} className="w-full justify-start items-center gap-3 inline-flex">
+                <a
+                  href={`../profile/${filteredUser._id}`}
+                  className="w-full justify-start items-center gap-3 inline-flex"
+                >
                   <div className="grow shrink basis-0 h-[60px] justify-start items-center gap-5 flex">
                     <div className="justify-center items-center flex">
                       <img

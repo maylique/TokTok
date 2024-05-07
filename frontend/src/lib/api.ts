@@ -31,3 +31,9 @@ export const deleteMainComment = (postId, commentId, userId) =>
       credentials: "include",
     })
     .json();
+export const deleteReply = (commentId, userId) =>
+  api
+    .delete(`comments/deleteReply/${commentId}/${userId}`, {
+      credentials: "include",
+    })
+    .json();

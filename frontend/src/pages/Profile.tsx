@@ -9,7 +9,7 @@ const Profile = () => {
   return (
     <>
       {user ? (
-        <div>
+        <div className="mb-28">
           <ProfileHeader />
           <ProfileHero />
           <ProfilePosts />
