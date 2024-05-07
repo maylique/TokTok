@@ -225,8 +225,8 @@
 
 .tracking-in-expand {
   -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1)
-    both;
-  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+    5s both;
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 5s both;
 }
 
 @-webkit-keyframes tracking-in-expand {
@@ -255,9 +255,8 @@
 }
 .tracking-in-expand-delay {
   -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1)
-    1.5s both;
-  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 1.5s
-    both;
+    7s both;
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 7s both;
 }
 
 @-webkit-keyframes tracking-in-expand {

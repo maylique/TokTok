@@ -82,6 +82,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/newpost" element={<NewPost />} />
           <Route path="*" element={<ErrorPage />} />
+          <Route path="/" element={<Login />} />
           <Route path="profile/:profileId" element={<UserProfile />} />
         </Routes>
       </ThemeProvider>
