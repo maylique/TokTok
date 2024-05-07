@@ -78,14 +78,14 @@ const LoginForm = () => {
           </div>
         </form>
         <div className="self-stretch justify-center items-center gap-2 inline-flex">
-          <div className="text-right text-neutral-400 text-sm font-normal font-['Urbanist'] leading-tight tracking-tight tracking-in-expand-delay">
-            Don't have an account?
+          <div className="text-right text-neutral-400 text-sm font-normal font-['Urbanist'] leading-tight tracking-tight ">
+            <p className="tracking-in-expand-delay">Don't have an account?</p>
           </div>
           <Link
             to="/register"
-            className="text-primary-500 text-sm font-semibold font-['Urbanist'] leading-tight tracking-tight tracking-in-expand-delay"
+            className="text-primary-500 text-sm font-semibold font-['Urbanist'] leading-tight tracking-tight "
           >
-            Sign Up
+            <p className="tracking-in-expand-delay">Sign Up</p>
           </Link>
         </div>
       </div>

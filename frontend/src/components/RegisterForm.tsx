@@ -1,6 +1,7 @@
 import { api } from "../lib/api";
 import { Link, useNavigate } from "react-router-dom";
 import "./animations.css";
+import { PlayCircle } from "lucide-react";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -22,9 +23,9 @@ const RegisterForm = () => {
   };
   return (
     <section className="w-full flex justify-center">
-      <div className="h-dvh px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex">
+      <div className="h-dvh px-6 pt-6 pb-6 flex-col justify-between items-center inline-flex">
         <div className="text-neutral-800 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
-          <p className="tracking-in-expand">
+          <p className="tracking-in-expand text-center">
             Create your
             <br />
             Account
@@ -80,15 +81,15 @@ const RegisterForm = () => {
             </div>
           </div>
         </form>
-        <div className="self-stretch justify-center items-center gap-2 inline-flex">
+        <div className=" mt-6 self-stretch justify-center items-center gap-2 inline-flex">
           <div className="text-right text-neutral-400 text-sm font-normal font-['Urbanist'] leading-tight tracking-tight">
-            Already have an account?
+            <p className="tracking-in-expand-delay">Already have an account?</p>
           </div>
           <Link
             to="/login"
             className="text-primary-500 text-sm font-semibold font-['Urbanist'] leading-tight tracking-tight"
           >
-            Sign in
+            <p className="tracking-in-expand-delay">Sign in</p>
           </Link>
         </div>
       </div>
