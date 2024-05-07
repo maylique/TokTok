@@ -19,7 +19,13 @@ cloudinary.config({
 });
 
 const app = express();
-app.use(express.json())
+app.use("/ping", (req, res) => {
+  res.send({
+    status: 200,
+    message: "Keep me alive bro",
+  });
+});
+app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(cookieParser());
