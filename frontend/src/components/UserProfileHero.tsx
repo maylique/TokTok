@@ -48,15 +48,13 @@ const UserProfileHero = ({ profile }) => {
               />
               <AvatarFallback>{profile.username}</AvatarFallback>
             </Avatar>
-            <div className="text-3xl font-bold">{user!.fullname}</div>
+            <div className="text-3xl font-bold">{profile.fullname}</div>
             <div className="text-xl">{profile.job}</div>
             <div className="text-lg font-normal text-black-500">
-              {user!.bio}
+              {profile.bio}
             </div>
             <div className="text-lg font-normal text-black-700 text-center">
-              <a href={`${profile.website}`}>
-                {profile.website}
-              </a>
+              <a href={`${profile.website}`}>{profile.website}</a>
             </div>
             <div className="flex h-5 items-center space-x-4 text-sm">
               {" "}
