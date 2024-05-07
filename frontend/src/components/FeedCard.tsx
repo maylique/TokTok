@@ -77,9 +77,22 @@ const FeedCard = ({ post }: { post: Post }) => {
             <div className="w-96 justify-center items-center rounded-3xl">
               <AspectRatio ratio={1 / 1}>
                 <img
-                  className="w-full h-96 object-cover rounded-3xl"
+                  className={`w-full h-96 rounded-3xl object-cover`}
                   src={post.imageUrl}
                   alt=""
+                  id={post._id}
+                  onClick={() => {
+                    const img = document.getElementById(
+                      post._id
+                    ) as HTMLImageElement;
+                    if (img.classList.contains("object-contain")) {
+                      img.classList.add("object-cover");
+                      img.classList.remove("object-contain");
+                    } else {
+                      img.classList.add("object-contain");
+                      img.classList.remove("object-cover");
+                    }
+                  }}
                 />
               </AspectRatio>
             </div>
