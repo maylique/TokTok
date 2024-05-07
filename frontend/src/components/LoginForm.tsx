@@ -32,7 +32,7 @@ const LoginForm = () => {
   };
   return (
     <section className="w-full flex justify-center">
-      <div className="h-screen px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex overflow-y-scroll">
+      <div className="h-dvh px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex overflow-y-scroll">
         <div className=" text-black-800 dark:text-black-50 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
           <p className="tracking-in-expand">Login</p>
         </div>
