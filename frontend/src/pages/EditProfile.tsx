@@ -31,7 +31,7 @@ const EditProfile = () => {
   const handleClick = () => {
     hiddenFileInput.current?.click();
   };
-
+  console.log(user.gender);
   const formData = new FormData();
   const handleChange = (event) => {
     const file = event.target.files[0];
@@ -55,17 +55,13 @@ const EditProfile = () => {
     bio: z.string().max(160, {
       message: "Bio must be at most 160 characters.",
     }),
-    birthdate: z.string(),
+    birthdate: z.string().optional(),
     email: z.string().email({
       message: "Please enter a valid email address.",
     }),
     phone: z.string().optional(),
-    website: z.string().url({
-      message: "Please enter a valid URL.",
-    }),
-    gender: z.string().min(1, {
-      message: "Please select a Gender.",
-    }),
+    website: z.string().url().optional(),
+    gender: z.string().optional(),
     job: z.string().optional(),
     fullname: z.string().optional(),
   });
@@ -79,7 +75,7 @@ const EditProfile = () => {
       email: user!.email,
       phone: user!.phone,
       website: user!.website,
-      gender: user!.gender,
+      gender: user!.gender || "male",
       job: user!.job,
       fullname: user!.fullname,
     },
@@ -283,8 +279,10 @@ const EditProfile = () => {
                       <SelectTrigger>
                         <SelectValue
                           placeholder={
-                            user!.gender?.charAt(0).toUpperCase() +
-                            user!.gender?.slice(1)
+                            user.gender
+                              ? user.gender.charAt(0).toUpperCase() +
+                                user.gender.slice(1)
+                              : "Choose your gender"
                           }
                         />
                       </SelectTrigger>

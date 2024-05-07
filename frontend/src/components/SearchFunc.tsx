@@ -69,12 +69,14 @@ const SearchFunc = () => {
               <div className="self-stretch h-1 bg-primary-500 rounded-[100px]"></div>
             </div>
           </div>
-          {filteredUsers.map((filteredUser) => {
+          {filteredUsers.map((filteredUser, index) => {
             const isFollowing = filteredUser?.followers.includes(user!._id);
             return (
               <div
                 key={filteredUser._id}
-                className="w-full justify-start items-center gap-3 inline-flex"
+                className={`w-full justify-start items-center gap-3 inline-flex ${
+                  index == filteredUsers.length - 1 ? "mb-20" : ""
+                }`}
               >
                 <a
                   href={`../profile/${filteredUser._id}`}

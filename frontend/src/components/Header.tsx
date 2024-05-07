@@ -12,6 +12,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Header = () => {
   const { logout } = useStore();
+
   return (
     <>
       <header className="flex m-3 mb-4 justify-between items-center">
@@ -27,7 +28,9 @@ const Header = () => {
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>
+                <a href="/profile">Profile</a>
+              </DropdownMenuItem>
               <DropdownMenuItem>Billing</DropdownMenuItem>
               <DropdownMenuItem>Team</DropdownMenuItem>
               <DropdownMenuSeparator />

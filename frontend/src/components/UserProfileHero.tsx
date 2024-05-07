@@ -53,7 +53,7 @@ const UserProfileHero = ({ profile }) => {
             <div className="text-lg font-normal text-black-500">
               {profile.bio}
             </div>
-            <div className="text-lg font-normal text-black-700 text-center">
+            <div className="text-lg font-normal text-black-700 text-center break-all">
               <a href={`${profile.website}`}>{profile.website}</a>
             </div>
             <div className="flex h-5 items-center space-x-4 text-sm">
@@ -63,12 +63,12 @@ const UserProfileHero = ({ profile }) => {
               </div>
               <Separator orientation="vertical" />
               <div>
-                <span className="font-bold">{profile.followers.length}</span>{" "}
-                Follower
+                <span className="font-bold">{followers.length}</span> Follower
               </div>
               <Separator orientation="vertical" />
               <div>
-                <span className="font-bold">{followers.length}</span> Following
+                <span className="font-bold">{profile.following.length}</span>{" "}
+                Following
               </div>
             </div>
             <Button
