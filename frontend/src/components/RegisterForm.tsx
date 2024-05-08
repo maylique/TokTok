@@ -25,7 +25,7 @@ const RegisterForm = () => {
     <section className="w-full flex justify-center">
       <div className="h-dvh px-6 pt-6 pb-6 flex-col justify-between items-center inline-flex">
         <div className="text-neutral-800 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
-          <p className="tracking-in-expand text-center">
+          <p className="tracking-in-expand-register text-center">
             Create your
             <br />
             Account
@@ -83,13 +83,15 @@ const RegisterForm = () => {
         </form>
         <div className=" mt-6 self-stretch justify-center items-center gap-2 inline-flex">
           <div className="text-right text-neutral-400 text-sm font-normal font-['Urbanist'] leading-tight tracking-tight">
-            <p className="tracking-in-expand-delay">Already have an account?</p>
+            <p className="tracking-in-expand-register-delay">
+              Already have an account?
+            </p>
           </div>
           <Link
             to="/login"
             className="text-primary-500 text-sm font-semibold font-['Urbanist'] leading-tight tracking-tight"
           >
-            <p className="tracking-in-expand-delay">Sign in</p>
+            <p className="tracking-in-expand-register-delay">Sign in</p>
           </Link>
         </div>
       </div>
