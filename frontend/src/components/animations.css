@@ -258,13 +258,13 @@
     7s both;
   animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 7s both;
 }
-.tracking-in-expand-delay-register {
+.tracking-in-expand-register {
   -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1)
     0.5s both;
   animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s
     both;
 }
-.tracking-in-expand-delay-register-delay {
+.tracking-in-expand-register-delay {
   -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1)
     1.5s both;
   animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) 1.5s
