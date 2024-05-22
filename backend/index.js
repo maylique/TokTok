@@ -19,6 +19,7 @@ cloudinary.config({
 });
 
 const app = express();
+app.use(morgan("dev"));
 app.use("/ping", (req, res) => {
   res.send({
     status: 200,
@@ -26,7 +27,6 @@ app.use("/ping", (req, res) => {
   });
 });
 app.use(express.json());
-app.use(morgan("dev"));
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(cookieParser());
 app.use("/users", userRouter);
