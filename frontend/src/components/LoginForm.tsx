@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Store, useStore } from "@/zustand";
 import "./animations.css";
@@ -30,11 +30,34 @@ const LoginForm = () => {
       console.log(error);
     }
   };
+
+  const compareLastVisitWithCurrentTime = () => {
+    const [animationPlayed, setAnimationPlayed] = useState(false);
+
+    const lastVisit = localStorage.getItem("lastVisit");
+    const currentHour = new Date().getHours().toString();
+
+    if (lastVisit !== currentHour) {
+      setTimeout(() => {
+        setAnimationPlayed(true);
+      }, 4000);
+    }
+
+    return animationPlayed;
+  };
   return (
     <section className="w-full flex justify-center">
-      <div className="h-dvh px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex overflow-y-scroll">
+      <div className="h-dvh px-6 pt-6 pb-12 flex-col justify-between items-center inline-flex sm:py-36">
         <div className=" text-black-800 dark:text-black-50 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
-          <p className="tracking-in-expand">Login</p>
+          <p
+            className={
+              compareLastVisitWithCurrentTime()
+                ? "tracking-in-expand"
+                : "tracking-in-expand-register"
+            }
+          >
+            Login
+          </p>
         </div>
         <div className="relative ">
           {/* <div className="w-[140px] h-[140px] left-0 top-0 absolute bg-gradient-to-l from-rose-500 to-red-300 rounded-[48px]"> */}
@@ -79,13 +102,29 @@ const LoginForm = () => {
         </form>
         <div className="self-stretch justify-center items-center gap-2 inline-flex">
           <div className="text-right text-neutral-400 text-sm font-normal font-['Urbanist'] leading-tight tracking-tight ">
-            <p className="tracking-in-expand-delay">Don't have an account?</p>
+            <p
+              className={
+                compareLastVisitWithCurrentTime()
+                  ? "tracking-in-expand-delay"
+                  : "tracking-in-expand-register-delay"
+              }
+            >
+              Don't have an account?
+            </p>
           </div>
           <Link
             to="/register"
             className="text-primary-500 text-sm font-semibold font-['Urbanist'] leading-tight tracking-tight "
           >
-            <p className="tracking-in-expand-delay">Sign Up</p>
+            <p
+              className={
+                compareLastVisitWithCurrentTime()
+                  ? "tracking-in-expand-delay"
+                  : "tracking-in-expand-register-delay"
+              }
+            >
+              Sign Up
+            </p>
           </Link>
         </div>
       </div>

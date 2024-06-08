@@ -16,6 +16,8 @@ import UserProfile from "./pages/UserProfile";
 import FullscreenModal from "./components/SplashScreen";
 import "./components/animations.css";
 import ErrorPage from "./components/ErrorPage";
+import MobileSizedView from "react-mobile-sized-view";
+import { useScreenSize } from "react-mobile-sized-view";
 
 function App() {
   const { user, loadCurrentUserData, logout } = useStore() as Store;
@@ -50,48 +52,57 @@ function App() {
     }
   }, []);
 
+  const { width: screenWidth } = useScreenSize();
   return (
     <>
-      <ThemeProvider defaultTheme="light">
-        <FullscreenModal
-          isOpen={sawSplashScreen}
-          onClose={() => setSawSplashScreen(false)}
-        >
-          <div className="w-40 h-40 rainbow slide-fwd-center">
-            <div
-              className="slide-fwd-center"
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <img className="w-full" src="/img/logo.svg" alt="" />
+      <MobileSizedView
+        style={{
+          width: screenWidth,
+          height: screenWidth,
+        }}
+        isRounded
+      >
+        <ThemeProvider defaultTheme="light">
+          <FullscreenModal
+            isOpen={sawSplashScreen}
+            onClose={() => setSawSplashScreen(false)}
+          >
+            <div className="w-40 h-40 rainbow slide-fwd-center">
+              <div
+                className="slide-fwd-center"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img className="w-full" src="/img/logo.svg" alt="" />
+              </div>
             </div>
-          </div>
-        </FullscreenModal>
-        <Routes>
-          <Route path="/post/:postId" element={<SinglePost />} />
-          <Route path="/feed" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/edit-profile/:userId" element={<EditProfile />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/newpost" element={<NewPost />} />
-          <Route path="*" element={<ErrorPage />} />
-          <Route path="/" element={<Login />} />
-          <Route path="profile/:profileId" element={<UserProfile />} />
-        </Routes>
-      </ThemeProvider>
-      {window.location.pathname.startsWith("/edit-profile") ||
-      window.location.pathname.startsWith("/post") ||
-      window.location.pathname === "/login" ||
-      window.location.pathname === "/register" ? null : (
-        <TabBar />
-      )}
+          </FullscreenModal>
+          <Routes>
+            <Route path="/post/:postId" element={<SinglePost />} />
+            <Route path="/feed" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/edit-profile/:userId" element={<EditProfile />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/newpost" element={<NewPost />} />
+            <Route path="*" element={<ErrorPage />} />
+            <Route path="/" element={<Login />} />
+            <Route path="profile/:profileId" element={<UserProfile />} />
+          </Routes>
+        </ThemeProvider>
+        {window.location.pathname.startsWith("/edit-profile") ||
+        window.location.pathname.startsWith("/post") ||
+        window.location.pathname === "/login" ||
+        window.location.pathname === "/register" ? null : (
+          <TabBar />
+        )}
+      </MobileSizedView>
     </>
   );
 }

@@ -23,7 +23,7 @@ const RegisterForm = () => {
   };
   return (
     <section className="w-full flex justify-center">
-      <div className="h-dvh px-6 pt-6 pb-6 flex-col justify-between items-center inline-flex">
+      <div className="h-dvh px-6 pt-6 pb-6 flex-col justify-between items-center inline-flex sm:py-36">
         <div className="text-neutral-800 text-[40px] font-bold font-['Urbanist'] leading-[44px]">
           <p className="tracking-in-expand-register text-center">
             Create your
