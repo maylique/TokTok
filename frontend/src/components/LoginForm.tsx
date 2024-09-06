@@ -25,8 +25,12 @@ const LoginForm = () => {
       toast({ description: "Login successful", variant: "success" });
       navigate("/feed");
     } catch (error) {
-      const errorMessage = await error.response.json();
-      toast({ description: errorMessage.message, variant: "destructive" });
+      toast({
+        title: "Error 401: Unauthorized",
+        description:
+          "Backend server is currently offline, please try again in 30 seconds.",
+        duration: 10000,
+      });
       console.log(error);
     }
   };
