@@ -20,12 +20,6 @@ cloudinary.config({
 
 const app = express();
 app.use(morgan("dev"));
-app.use("/ping", (req, res) => {
-  res.send({
-    status: 200,
-    message: "Keep me alive bro",
-  });
-});
 app.use(express.json());
 app.use(
   cors({
@@ -38,6 +32,12 @@ app.use("/users", userRouter);
 app.use("/auth", authRouter);
 app.use("/posts", postRouter);
 app.use("/comments", commentRouter);
+app.use("/ping", (req, res) => {
+  res.send({
+    status: 200,
+    message: "Keep me alive bro",
+  });
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {
